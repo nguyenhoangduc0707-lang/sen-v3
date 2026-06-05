@@ -1,0 +1,29 @@
+﻿========================================
+🚀 HƯỚNG DẪN BẮT ĐẦU NHANH
+========================================
+
+1. LẤY LINK AFFILIATE:
+   - Truy cập: https://pub.accesstrade.vn
+   - Đăng nhập tài khoản của bạn
+   - Vào "Campaigns" → Tìm campaign theo ID
+   - Click "Get Link" → Copy link
+
+2. CÁC CAMPAIGN NÊN BẮT ĐẦU:
+   - Shopee Việt Nam (E-COMMERCE)
+   - VPBank SenID (FINANCIAL)
+   - TPBank (FINANCIAL)
+   - Lazada (E-COMMERCE)
+
+3. CHIA SẺ LINK:
+   - Facebook cá nhân / Fanpage
+   - Group Facebook (mua bán, tiếp thị)
+   - Zalo cá nhân / Group
+   - TikTok
+
+4. THEO DÕI DOANH SỐ:
+   - Chạy: python check_transactions.py
+   - Xem dashboard: python sales_dashboard.py
+
+========================================
+💡 MẸO: Đăng ký mới thường có hoa hồng cao nhất!
+========================================

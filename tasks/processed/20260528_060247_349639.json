@@ -1,0 +1,15 @@
+{
+  "worker": "tiktok_worker",
+  "payload": {
+    "url": "https://tiktok.com/test"
+  },
+  "created_at": "2026-05-28T06:02:47.349639",
+  "finished_at": "2026-05-28T06:30:54.037747",
+  "result": {
+    "status": "success",
+    "summary": "Test OK",
+    "raw_stats": {
+      "likes": 100
+    }
+  }
+}

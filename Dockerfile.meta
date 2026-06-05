@@ -1,0 +1,15 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Dependencies
+COPY requirements.meta.txt .
+RUN pip install --no-cache-dir -r requirements.meta.txt
+
+# Source
+COPY meta_agent.py semantic_validator.py main.py ./
+COPY circuit_breaker.py dead_letter_monitor.py ./
+
+EXPOSE 8080
+
+CMD ["python", "main.py"]

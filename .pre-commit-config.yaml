@@ -1,0 +1,31 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 24.4.2
+    hooks:
+      - id: black
+        args: [--line-length=140]
+        exclude: ^venv/|node_modules/|\.pytest_cache/|alembic/versions/
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: [--profile=black, --line-length=140, --skip=venv, --skip=node_modules, --skip=.pytest_cache]
+        exclude: ^venv/|node_modules/|\.pytest_cache/|alembic/versions/
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        args: [--max-line-length=140, --exclude=venv,__pycache__,node_modules,.pytest_cache,alembic/versions]
+        exclude: ^venv/|node_modules/|\.pytest_cache/|alembic/versions/
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        entry: pytest
+        language: system
+        types: [python]
+        pass_filenames: false
+        always_run: true
+        args: [tests/]

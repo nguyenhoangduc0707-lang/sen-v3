@@ -1,0 +1,50 @@
+﻿========================================
+📊 TỔNG HỢP HỆ THỐNG AFFILIATE
+========================================
+
+✅ CAMPAIGNS ĐANG HOẠT ĐỘNG: 14 links
+
+🔗 LINK CHÍNH (copy và dùng ngay):
+
+1. TPBANK CREATOR
+https://go.isclix.com/deep_link/v5/6983938396644077046/6767399642708413705?sub4=sen_v3
+
+2. VPBank - Vay Tín chấp
+https://go.isclix.com/deep_link/v5/6983938396644077046/6822308958202075636?sub4=sen_v3
+
+3. Chứng khoán Maybank
+https://go.isclix.com/deep_link/v5/6983938396644077046/6827321992129624253?sub4=sen_v3
+
+4. AppMax Vay Nhanh
+https://go.isclix.com/deep_link/v5/6983938396644077046/6873138885445764645?sub4=sen_v3
+
+5. HDBank - Thẻ tín dụng
+https://go.isclix.com/deep_link/v5/6983938396644077046/6877351644194955800?sub4=sen_v3
+
+6. Chứng khoán Kafi X
+https://go.isclix.com/deep_link/v5/6983938396644077046/6896341778738303892?sub4=sen_v3
+
+7. KIS
+https://go.isclix.com/deep_link/v5/6983938396644077046/6923208811031507234?sub4=sen_v3
+
+8. BIDV CN1
+https://go.isclix.com/deep_link/v5/6983938396644077046/6933871567339046924?sub4=sen_v3
+
+9. iShinhan Vay IOS
+https://go.isclix.com/deep_link/v5/6983938396644077046/6949939948611548600?sub4=sen_v3
+
+10. iShinhan Vay Android
+https://go.isclix.com/deep_link/v5/6983938396644077046/6949942463850829113?sub4=sen_v3
+
+11. VPBank SenID
+https://go.isclix.com/deep_link/v5/6983938396644077046/6985504292608237862?sub4=sen_v3
+
+12. TPBank
+https://go.isclix.com/deep_link/v5/6983938396644077046/6985504292608237863?sub4=sen_v3
+
+========================================
+🚀 CÁCH KHỞI ĐỘNG:
+1. Chạy: python start_promotion.py
+2. Chạy: python marketing_content.py
+3. Copy link từ file all_active_links.txt
+========================================

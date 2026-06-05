@@ -1,0 +1,116 @@
+version: "3.9"
+
+services:
+
+  # ── Infrastructure ───────────────────────────────────────────────────────────
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB:       sen_v3
+      POSTGRES_USER:     sen
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sen"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --maxmemory 512mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER:     ${MINIO_USER:-senuser}
+      MINIO_ROOT_PASSWORD: ${MINIO_PASS:-changeme123}
+    volumes:
+      - miniodata:/data
+    ports:
+      - "9001:9001"   # MinIO console
+    restart: unless-stopped
+
+  # ── MetaAgent × 2 (HA) ──────────────────────────────────────────────────────
+  # Chỉ 1 instance giữ Redis leader lock, instance còn lại standby.
+  # Nếu primary chết, standby tiếp quản trong vòng LEADER_TTL giây.
+
+  meta_agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.meta
+    environment:
+      DATABASE_URL:          postgresql://sen:${POSTGRES_PASSWORD:-changeme}@postgres/sen_v3
+      REDIS_URL:             redis://redis:6379/0
+      TASK_QUEUE:            sen:tasks
+      MAX_QUEUE_DEPTH:       500
+      LEADER_TTL_SEC:        30
+      LEADER_RENEW_SEC:      10
+      DISPATCH_INTERVAL_SEC: 15
+      DL_RETRY_INTERVAL_SEC: 120
+      WORKER_HEARTBEAT_TTL:  120
+      DL_WARN_THRESHOLD:     10
+      DL_CRIT_THRESHOLD:     30
+      TELEGRAM_BOT_TOKEN:    ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_CHAT_ID:      ${TELEGRAM_CHAT_ID:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    deploy:
+      replicas: 2          # ← HA: 1 leader + 1 standby
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8080/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
+
+  # ── Content Worker (scale tuỳ ý) ────────────────────────────────────────────
+
+  content_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    environment:
+      DATABASE_URL: postgresql://sen:${POSTGRES_PASSWORD:-changeme}@postgres/sen_v3
+      REDIS_URL:    redis://redis:6379/0
+      TASK_QUEUE:   sen:tasks
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      MINIO_ENDPOINT: minio:9000
+      MINIO_USER:     ${MINIO_USER:-senuser}
+      MINIO_PASS:     ${MINIO_PASS:-changeme123}
+    depends_on:
+      - meta_agent
+      - postgres
+      - redis
+      - minio
+    deploy:
+      replicas: 3          # ← Scale worker theo nhu cầu
+      restart_policy:
+        condition: on-failure
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  redisdata:
+  miniodata:

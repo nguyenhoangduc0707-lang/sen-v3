@@ -1,0 +1,12 @@
+{
+  "accessctrade": {
+    "access_key": "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",
+    "base_url": "https://api.accesstrade.vn/v1",
+    "timeout_seconds": 30
+  },
+  "picker": {
+    "min_commission_rate": 0.0,
+    "top_n": 5,
+    "loop_interval_minutes": 15
+  }
+}

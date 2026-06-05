@@ -1,0 +1,12 @@
+﻿[flake8]
+max-line-length = 150
+exclude = venv,__pycache__,node_modules,.pytest_cache,alembic/versions
+per-file-ignores =
+    alembic/env.py: E402
+    run_picker.py: E402
+    run_picker_v2.py: E402
+    scripts/check_config.py: E402
+    scripts/init_db.py: E402
+    bootstrap.py: E501
+    tests/*: E402
+    scripts/*: E402

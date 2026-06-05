@@ -1,0 +1,32 @@
+{
+    "version": "1.0.0",
+    "description": "Lazada Integration Configuration for SEN V3",
+    "default_domain": "lazada.vn",
+    "domains": {
+        "vietnam": "lazada.vn",
+        "malaysia": "lazada.com.my",
+        "singapore": "lazada.sg",
+        "thailand": "lazada.co.th",
+        "philippines": "lazada.com.ph",
+        "indonesia": "lazada.co.id"
+    },
+    "api_settings": {
+        "timeout": 30,
+        "retry_attempts": 3
+    },
+    "scraping_settings": {
+        "user_agents": [
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+        ],
+        "max_concurrent": 5
+    },
+    "rate_limits": {
+        "requests_per_second": 2,
+        "batch_delay": 0.5
+    },
+    "cache_settings": {
+        "enabled": true,
+        "ttl": 3600
+    }
+}

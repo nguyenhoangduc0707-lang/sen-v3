@@ -1,0 +1,24 @@
+{
+  "worker": "tiktok_affiliate",
+  "payload": {
+    "url": "https://www.tiktok.com/@shop/video/999",
+    "user_id": 1
+  },
+  "created_at": "2026-05-28T06:29:57.768525",
+  "finished_at": "2026-05-28T08:01:05.582334",
+  "result": {
+    "status": "success",
+    "summary": "TikTok OK | 3 don | 2,250d",
+    "raw_stats": {
+      "views": 1200,
+      "likes": 340,
+      "clicks": 89,
+      "conversions": 3,
+      "revenue": 2250.0,
+      "product_id": "999",
+      "url": "https://www.tiktok.com/@shop/video/999"
+    },
+    "elapsed": 0.5,
+    "platform": "TikTok"
+  }
+}

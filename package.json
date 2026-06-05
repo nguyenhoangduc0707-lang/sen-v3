@@ -1,0 +1,20 @@
+{
+  "name": "senv3-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npm --prefix frontend start",
+    "build-frontend": "npm --prefix frontend run build",
+    "test-frontend": "npm --prefix frontend test"
+  },
+  "dependencies": {
+    "axios": "^1.16.1",
+    "chart.js": "^4.5.1",
+    "react-chartjs-2": "^5.3.1"
+  },
+  "devDependencies": {
+    "@types/chart.js": "^2.9.41",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3"
+  }
+}

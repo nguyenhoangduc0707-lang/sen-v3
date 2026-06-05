@@ -1,0 +1,9 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Glassmorphic helper class */
+.glass {
+  @apply bg-glass backdrop-blur-md border border-glass-border rounded-xl shadow-glass;
+}

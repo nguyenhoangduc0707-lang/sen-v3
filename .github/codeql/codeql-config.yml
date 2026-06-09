@@ -1,0 +1,17 @@
+name: "SEN V3 CodeQL Config"
+
+paths:
+  - src
+  - web
+  - scripts
+  - frontend/src
+
+paths-ignore:
+  - frontend/node_modules
+  - __pycache__
+  - .archive
+  - .git.old_*
+
+queries:
+  - uses: security-extended
+  - uses: security-and-quality

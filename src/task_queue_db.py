@@ -5,6 +5,7 @@ Provides methods to add, claim, complete, fail tasks and record execution logs a
 
 from datetime import datetime
 from typing import Any, Dict, Optional
+import json
 
 from sqlalchemy import text
 
@@ -15,8 +16,8 @@ MAX_RETRIES_DEFAULT = 3
 
 
 class TaskQueueDB:
-    def __init__(self):
-        self.engine = get_engine()
+    def __init__(self, engine=None):
+        self.engine = engine or get_engine()
 
     def add_task(
         self,
@@ -27,17 +28,28 @@ class TaskQueueDB:
     ) -> int:
         session = get_session()
         try:
+            # Serialize payload to JSON string for Text column
+            payload_str = json.dumps(payload) if payload else None
             t = Task(
+                title=category or f"task-{worker_name}",
+                task_type="generic",  # legacy NOT NULL
                 category=category,
                 worker_name=worker_name,
-                payload=payload,
+                payload=payload_str,
                 status="PENDING",
                 retries=0,
             )
-            # optional priority column isn't in model; encode into payload or extend model if needed
             session.add(t)
             session.commit()
             session.refresh(t)
+
+            # Apply automations (route, notify, update status etc) - no coding for users
+            try:
+                from src.automation import apply_automations_on_task_create
+                apply_automations_on_task_create(t)
+            except Exception as auto_err:
+                print(f"[Automation] Skipped on task create: {auto_err}")
+
             return t.id
         finally:
             session.close()
@@ -113,7 +125,13 @@ class TaskQueueDB:
             return None
         session = get_session()
         try:
-            return session.get(Task, claimed_id)
+            t = session.get(Task, claimed_id)
+            if t and isinstance(t.payload, str):
+                try:
+                    t.payload = json.loads(t.payload)
+                except Exception:
+                    pass  # keep as string if not valid json
+            return t
         finally:
             session.close()
 
@@ -201,3 +219,7 @@ class TaskQueueDB:
             session.commit()
         finally:
             session.close()
+
+    async def claim_task(self, worker_name: str):
+        """Alias for compatibility with BaseWorker"""
+        return await self.claim_next_task(worker_name)

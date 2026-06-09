@@ -30,6 +30,14 @@ logs/
 *.sqlite
 *.sqlite3
 
+# Test & coverage (Phase 4 cleanup)
+.pytest_cache/
+.coverage
+htmlcov/
+.coverage.*
+*.cover
+*.py,cover
+
 # Backup
 *.bak
 backup_*/

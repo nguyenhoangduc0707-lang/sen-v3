@@ -1,0 +1,18 @@
+﻿CÁCH LẤY GOOGLE CREDENTIALS:
+
+1. Truy cập: https://console.cloud.google.com/
+2. Tạo Project mới: DYT01_Affiliate_Sync
+3. Tìm và BẬT các API:
+   - Google Sheets API
+   - Google Drive API
+4. Vào Credentials → Create Credentials → Service Account
+5. Đặt tên: dyt01-affiliate-sync
+6. Role: Editor
+7. Tạo key JSON và tải về
+8. Đổi tên file thành: google_credentials.json
+9. Đặt file vào thư mục E:\DYT_01\
+
+SAU ĐÓ:
+- Mở file google_credentials.json
+- Tìm email: xxxxx@yyyyyy.iam.gserviceaccount.com
+- Copy email này để chia sẻ sheet

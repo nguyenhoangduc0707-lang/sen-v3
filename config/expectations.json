@@ -1,0 +1,11 @@
+{
+  "min_length": 150,
+  "max_length": 800,
+  "require_affiliate_link": true,
+  "require_cta": true,
+  "require_hashtags": true,
+  "cta_keywords": ["mua ngay", "đặt hàng", "sở hữu ngay", "click", "tại đây"],
+  "hashtag_min_count": 2,
+  "forbidden_words": ["lừa đảo", "giả", "kém chất lượng"],
+  "min_positive_sentiment": true
+}

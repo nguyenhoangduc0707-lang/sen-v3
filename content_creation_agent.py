@@ -1,5 +1,5 @@
 ﻿"""
-content_creation_agent.py  —  SEN V3 (Groq edition) – Fixed event loop
+content_creation_agent.py  —  SEN V3 (Gemini/Groq edition) – Fixed event loop + real key support
 """
 import os
 import random
@@ -8,6 +8,9 @@ import asyncio
 import functools
 import logging
 from typing import Dict, Any, List
+
+from dotenv import load_dotenv
+load_dotenv()  # Load .env so GEMINI_API_KEY and GROQ_API_KEY are picked up even in direct python runs
 
 logger = logging.getLogger(__name__)
 
@@ -78,17 +81,47 @@ def _cache_set(campaign: Dict, content: str):
 def create_article_fallback(campaign: Dict[str, Any]) -> str:
     name = campaign.get("name", "Sản phẩm")
     comm_display = campaign.get("commission_display", "0%")
+    affiliate_link = campaign.get("affiliate_link", "https://your-affiliate-link.com")
     templates = [
-        f"🔥 Hót hòn họt: {name} – cơ hội kiếm tiền khủng với hoa hồng {comm_display}.",
-        f"🌟 Siêu sale! {name} hoa hồng lên tới {comm_display}. Mua ngay kẻo lỡ!",
-        f"💸 Thu nhập thụ động với {name} – nhận ngay {comm_display} cho mỗi đơn.",
-        f"🚀 Đã có {name} – cơ hội affiliate không thể bỏ lỡ, hoa hồng {comm_display}.",
-        f"🎯 Chốt đơn dễ dàng cùng {name}, hưởng hoa hồng {comm_display} cực đã.",
+        f"🔥 Siêu hot! {name} – hoa hồng cực khủng {comm_display}. Mua ngay tại {affiliate_link} để nhận deal tốt nhất! Sản phẩm chất lượng cao, nhiều người dùng hài lòng. #dealhot #affiliate #muangay",
+        f"🌟 Cơ hội vàng: {name} với hoa hồng {comm_display}. Sở hữu ngay tại {affiliate_link} kẻo lỡ! Đừng bỏ lỡ cơ hội kiếm tiền thụ động này. #hotdeal #affiliate",
+        f"💸 Kiếm tiền thụ động dễ dàng với {name} – hoa hồng {comm_display} mỗi đơn. Đặt hàng ngay: {affiliate_link} Sản phẩm uy tín, hỗ trợ tốt. #affiliate #kinhtien #deal",
+        f"🚀 {name} đang giảm giá sốc! Hoa hồng {comm_display}. Click mua ngay {affiliate_link} để trải nghiệm ngay hôm nay. #sale #affiliate #muangay",
     ]
     return random.choice(templates)
 
 # ========== GROQ ==========
 @async_retry(max_attempts=3, base_delay=2.0)
+async def _call_gemini(prompt: str) -> str:
+    """Gọi Gemini (khuyến nghị cho PHASE 1) - hỗ trợ prompt nghiêm ngặt về link/CTA/hashtag"""
+    import aiohttp
+    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    if not api_key or not api_key.startswith("AIza"):
+        raise _NoRetryError("GEMINI_API_KEY chưa set hoặc sai format (phải bắt đầu bằng AIza...)")
+
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {
+            "temperature": 0.65,
+            "maxOutputTokens": 600,
+            "topP": 0.9
+        }
+    }
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, json=payload) as resp:
+            if resp.status == 200:
+                data = await resp.json()
+                text = data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "").strip()
+                if not text:
+                    raise ValueError("Gemini trả về nội dung rỗng")
+                return text
+            else:
+                err = await resp.text()
+                if "API_KEY_INVALID" in err or resp.status == 400:
+                    raise _NoRetryError(f"GEMINI_API_KEY không hợp lệ")
+                raise Exception(f"Gemini error {resp.status}: {err[:300]}")
+
 async def _call_groq(prompt: str) -> str:
     from groq import Groq
 
@@ -125,10 +158,36 @@ async def _call_groq(prompt: str) -> str:
     return text
 
 async def create_article_groq_async(campaign: Dict[str, Any]) -> str:
+    """Tạo content affiliate - ƯU TIÊN Gemini (nếu có key AIza...), fallback Groq."""
     name = campaign.get("name", "Sản phẩm")
     comm_display = campaign.get("commission_display", "0%")
     desc = campaign.get("description", "")
-    prompt = f"Viết 1-2 câu giới thiệu sản phẩm hấp dẫn cho affiliate marketing.\nSản phẩm: {name}\nHoa hồng: {comm_display}\nMô tả: {desc}\nYêu cầu: ngắn gọn, có emoji, nêu bật lợi ích, kêu gọi hành động."
+    affiliate_link = campaign.get("affiliate_link", "https://your-affiliate-link.com")
+
+    prompt = f"""Viết bài giới thiệu sản phẩm {name} để đăng Facebook affiliate.
+
+⚠️ YÊU CẦU BẮT BUỘC (không được thiếu):
+1. Phải chèn link affiliate này đúng 1 lần: {affiliate_link}
+2. Phải có CTA rõ ràng: "Mua ngay", "Đặt hàng ngay", "Sở hữu ngay tại link", "Click mua ngay"...
+3. Phải có ít nhất 2-3 hashtags ở cuối: ví dụ #ten-san-pham #dealhot #muangay #affiliate
+4. Độ dài: 150-350 từ (khoảng 4-8 dòng)
+5. Ngôn ngữ: hấp dẫn, lợi ích rõ ràng, dùng emoji phù hợp (🔥🌟💸🚀)
+6. Nêu bật hoa hồng {comm_display} nếu có.
+
+Sản phẩm: {name}
+Mô tả: {desc}
+
+Chỉ trả về nội dung bài đăng, không giải thích thêm."""
+
+    gemini_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    if gemini_key and gemini_key.startswith("AIza"):
+        try:
+            return await _call_gemini(prompt)
+        except _NoRetryError as e:
+            logger.warning(f"[Gemini] Key lỗi, thử Groq: {e}")
+        except Exception as e:
+            logger.warning(f"[Gemini] Thất bại, fallback Groq: {e}")
+
     return await _call_groq(prompt)
 
 async def create_article_async(campaign: Dict[str, Any]) -> Dict[str, Any]:
@@ -151,19 +210,172 @@ async def create_article_async(campaign: Dict[str, Any]) -> Dict[str, Any]:
     _cache_set(campaign, content)
     return {"content": content, "provider": provider, "cached": False}
 
-# ========== SYNC WRAPPER (using asyncio.run) ==========
-def create_article(campaign_id_or_dict) -> str:
+# ========== ASYNC-FIRST ENTRY POINT (FIXED for event loop) ==========
+async def create_article_async(campaign: Dict[str, Any], theme: str = "affiliate") -> Dict[str, Any]:
+    """
+    Async version - preferred for modern async code (ContentWorker, etc.)
+    This fixes the 'asyncio.run() cannot be called from a running event loop' error.
+    """
+    if theme == "motivational":
+        try:
+            return await create_motivational_async(campaign)
+        except Exception as e:
+            logger.error(f"[ContentAgent] motivational lỗi: {e}")
+            return {"content": create_motivational_fallback(campaign), "provider": "fallback"}
+    elif theme == "banking":
+        try:
+            return await create_banking_async(campaign)
+        except Exception as e:
+            logger.error(f"[ContentAgent] banking lỗi: {e}")
+            return {"content": create_banking_fallback(campaign), "provider": "fallback"}
+    elif theme == "ai_tech":
+        try:
+            return await create_ai_tech_async(campaign)
+        except Exception as e:
+            logger.error(f"[ContentAgent] ai_tech lỗi: {e}")
+            return {"content": create_ai_tech_fallback(campaign), "provider": "fallback"}
+    else:
+        # default affiliate - use Groq with strong prompt
+        try:
+            return await create_article_groq_async(campaign)
+        except Exception as e:
+            logger.error(f"[ContentAgent] create_article_async lỗi: {e}")
+            return {"content": create_article_fallback(campaign), "provider": "fallback"}
+
+
+# ========== SYNC WRAPPER (legacy only - uses asyncio.run, may cause issues in async context) ==========
+def create_article(campaign_id_or_dict, theme: str = "affiliate") -> str:
+    """Legacy sync wrapper. Prefer create_article_async() in new code."""
     if isinstance(campaign_id_or_dict, str):
         campaign = {"name": "Sản phẩm mẫu", "commission_display": "15%", "description": ""}
     else:
         campaign = campaign_id_or_dict
 
     try:
-        result = asyncio.run(create_article_async(campaign))
-        return result["content"]
+        result = asyncio.run(create_article_async(campaign, theme=theme))
+        return result.get("content", create_article_fallback(campaign))
     except Exception as e:
-        logger.error(f"[ContentAgent] create_article lỗi: {e}")
+        logger.error(f"[ContentAgent] create_article (sync) lỗi: {e}")
         return create_article_fallback(campaign)
+
+
+# ========== MOTIVATIONAL / POSTCARD THEME ==========
+def create_motivational_fallback(campaign: Dict[str, Any]) -> str:
+    name = campaign.get("name", "Cuộc Sống")
+    templates = [
+        f"🌸 Hôm nay, hãy nhớ rằng bạn xứng đáng được hạnh phúc. {name} – một lời nhắc nhở nhỏ cho tâm hồn.",
+        f"💫 Đừng vội vàng, hãy chậm lại một chút để cảm nhận cuộc sống. Mỗi ngày là một cơ hội mới.",
+        f"❤️ Tình yêu bản thân là khởi nguồn của mọi điều tốt đẹp. Hãy yêu thương chính mình nhiều hơn.",
+        f"🌟 Dù khó khăn đến đâu, hãy tin rằng bạn mạnh mẽ hơn những gì bạn nghĩ. Tiếp tục bước tiếp nhé!",
+        f"✨ Cuộc sống không phải là đích đến, mà là hành trình. Hãy tận hưởng từng khoảnh khắc nhỏ bé."
+    ]
+    return random.choice(templates)
+
+async def create_motivational_async(campaign: Dict[str, Any]) -> Dict[str, Any]:
+    topic = campaign.get("name", "Cuộc Sống")
+    desc = campaign.get("description", "truyền động lực và tình cảm")
+    prompt = f"""Viết một bài đăng phong cách postcard tình cảm, truyền động lực cuộc sống.
+Chủ đề: {topic}
+Mô tả thêm: {desc}
+Yêu cầu:
+- Ngắn gọn, 3-6 dòng
+- Ngôn từ ấm áp, tích cực, truyền cảm hứng
+- Có thể dùng trích dẫn hoặc hình ảnh miêu tả
+- Không bán hàng, không quảng cáo, không link
+- Thêm emoji phù hợp
+- Kết thúc bằng lời chúc hoặc câu hỏi gợi mở suy nghĩ
+Chỉ trả về nội dung bài đăng, không giải thích."""
+
+    try:
+        content = await _call_groq(prompt)
+        # Override system prompt for this theme if needed, but reuse _call_groq with different system?
+        # For simplicity, we can customize by re-calling with different system, but to avoid complexity, use prompt.
+        provider = "groq"
+    except Exception as e:
+        logger.warning(f"[ContentAgent] Groq motivational thất bại: {e}")
+        content = create_motivational_fallback(campaign)
+        provider = "fallback"
+
+    return {"content": content, "provider": provider}
+
+# ========== BANKING / FINANCE THEME ==========
+def create_banking_fallback(campaign: Dict[str, Any]) -> str:
+    name = campaign.get("name", "Sản Phẩm Tài Chính")
+    comm_display = campaign.get("commission_display", "ưu đãi tốt")
+    templates = [
+        f"💰 Cần vốn nhanh? {name} hỗ trợ vay tín chấp linh hoạt với {comm_display}. Giải pháp tài chính thông minh!",
+        f"🏦 Ưu đãi đặc biệt từ {name} – lãi suất hấp dẫn, thủ tục đơn giản. Đừng bỏ lỡ cơ hội!",
+        f"📈 Quản lý tài chính cá nhân dễ dàng hơn với {name}. Hỗ trợ bạn trên hành trình ổn định cuộc sống.",
+        f"💳 Thẻ tín dụng / Vay tiêu dùng {name} – đồng hành cùng bạn trong mọi kế hoạch lớn nhỏ.",
+        f"✅ Vay tiền nhanh chóng, an toàn với {name}. Hoa hồng {comm_display} cho người giới thiệu."
+    ]
+    return random.choice(templates)
+
+async def create_banking_async(campaign: Dict[str, Any]) -> Dict[str, Any]:
+    name = campaign.get("name", "Sản phẩm ngân hàng")
+    comm_display = campaign.get("commission_display", "ưu đãi")
+    desc = campaign.get("description", "tài chính cá nhân")
+    prompt = f"""Viết bài đăng về sản phẩm tài chính ngân hàng (vay, thẻ tín dụng, tiết kiệm).
+Sản phẩm: {name}
+Ưu đãi: {comm_display}
+Mô tả: {desc}
+Yêu cầu:
+- Kết hợp thông tin hữu ích + yếu tố truyền động lực tài chính
+- Ngắn gọn, 4-7 dòng
+- Nhấn mạnh lợi ích (thủ tục nhanh, lãi suất tốt, hỗ trợ khách hàng)
+- Có emoji chuyên nghiệp nhưng gần gũi
+- Kêu gọi hành động (tư vấn, đăng ký)
+- Phù hợp fanpage tài chính ngân hàng
+Chỉ trả về nội dung bài đăng."""
+
+    try:
+        content = await _call_groq(prompt)
+        provider = "groq"
+    except Exception as e:
+        logger.warning(f"[ContentAgent] Groq banking thất bại: {e}")
+        content = create_banking_fallback(campaign)
+        provider = "fallback"
+
+    return {"content": content, "provider": provider}
 
 def create_article_with_params(campaign: Dict[str, Any], params: Dict[str, Any]) -> str:
     return create_article(campaign)
+
+
+def create_ai_tech_fallback(campaign: Dict[str, Any]) -> str:
+    name = campaign.get("name", "Công cụ AI")
+    comm_display = campaign.get("commission_display", "hoa hồng tốt")
+    templates = [
+        f"🤖 Siêu phẩm AI: {name} – tăng năng suất x10, hoa hồng {comm_display}. Dùng ngay kẻo lỡ!",
+        f"🚀 Công nghệ AI {name} giúp bạn làm việc nhanh hơn, tiết kiệm thời gian. Nhận {comm_display} mỗi đơn!",
+        f"💡 AI đang thay đổi mọi thứ. {name} là công cụ bạn cần, hoa hồng {comm_display} cho affiliate.",
+        f"⚡ Tối ưu công việc với {name} – AI thông minh, dễ dùng. Hoa hồng {comm_display} cực hấp dẫn.",
+        f"🎯 Chốt deal AI ngay với {name}, hưởng {comm_display}. Tương lai thuộc về người dùng AI!",
+    ]
+    return random.choice(templates)
+
+async def create_ai_tech_async(campaign: Dict[str, Any]) -> Dict[str, Any]:
+    name = campaign.get("name", "Công cụ AI")
+    comm_display = campaign.get("commission_display", "hoa hồng")
+    desc = campaign.get("description", "công nghệ AI")
+    prompt = f"""Viết bài đăng affiliate về sản phẩm công nghệ AI / công cụ AI.
+Sản phẩm: {name}
+Hoa hồng: {comm_display}
+Mô tả: {desc}
+Yêu cầu:
+- Nhấn mạnh lợi ích: tiết kiệm thời gian, tăng năng suất, dễ sử dụng, thông minh.
+- Ngắn gọn 4-7 dòng
+- Dùng emoji công nghệ (🤖🚀💡⚡)
+- Kêu gọi thử dùng / đăng ký ngay
+- Phù hợp fanpage công nghệ AI affiliate
+Chỉ trả về nội dung bài đăng."""
+
+    try:
+        content = await _call_groq(prompt)
+        provider = "groq"
+    except Exception as e:
+        logger.warning(f"[ContentAgent] Groq ai_tech thất bại: {e}")
+        content = create_ai_tech_fallback(campaign)
+        provider = "fallback"
+
+    return {"content": content, "provider": provider}

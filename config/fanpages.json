@@ -1,0 +1,68 @@
+{
+  "affiliate_fashion_cosmetics": {
+    "name": "ACFC Thời Trang & Mỹ Phẩm",
+    "url": "https://www.facebook.com/profile.php?id=61589228527389",
+    "theme": "affiliate",
+    "description": "Fanpage affiliate thời trang, mỹ phẩm, sản phẩm làm đẹp. Đăng bài bán hàng, deal hot, hoa hồng affiliate.",
+    "style_prompt": "Viết bài đăng bán hàng hấp dẫn, nhấn mạnh lợi ích sản phẩm, hoa hồng, dùng emoji, call-to-action mạnh mẽ, phù hợp affiliate marketing.",
+    "best_posting_times": [
+      8,
+      9,
+      12,
+      18,
+      19,
+      20,
+      21
+    ]
+  },
+  "motivational_postcard": {
+    "name": "Postcard Tâm Hồn - Truyền Động Lực",
+    "url": "https://www.facebook.com/profile.php?id=61589836702360",
+    "theme": "motivational",
+    "description": "Fanpage đăng postcard tình cảm, câu chuyện cuộc sống, truyền động lực, cảm hứng tích cực.",
+    "style_prompt": "Viết bài theo phong cách postcard tình cảm, ấm áp, truyền cảm hứng, động lực sống, có thể dùng trích dẫn hoặc câu chuyện ngắn. Ngôn từ nhẹ nhàng, cảm xúc, không bán hàng, không quảng cáo sản phẩm.",
+    "best_posting_times": [
+      7,
+      8,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22
+    ]
+  },
+  "banking_finance": {
+    "name": "Tài Chính Ngân Hàng - Vay Tiền Dễ Dàng",
+    "url": "https://www.facebook.com/your-banking-fanpage-3",
+    "theme": "banking",
+    "description": "Fanpage về sản phẩm ngân hàng, vay tín chấp, thẻ tín dụng, tài chính cá nhân. Kết hợp động lực và thông tin hữu ích.",
+    "style_prompt": "Viết bài về tài chính ngân hàng, nhấn mạnh lợi ích vay nhanh, lãi suất tốt, hỗ trợ tài chính. Kết hợp yếu tố truyền động lực và lời khuyên tài chính. Dùng ngôn từ tin cậy, chuyên nghiệp nhưng dễ hiểu.",
+    "best_posting_times": [
+      8,
+      9,
+      12,
+      17,
+      18,
+      19,
+      20
+    ]
+  },
+  "ai_tech": {
+    "name": "AI Tech & Công Nghệ",
+    "url": "https://www.facebook.com/your-ai-tech-fanpage",
+    "theme": "ai_tech",
+    "description": "Fanpage chuyên mặt hàng công nghệ AI, công cụ AI, phần mềm, lấy hoa hồng affiliate. Đăng bài review, lợi ích, deal.",
+    "style_prompt": "Viết bài về công cụ AI và công nghệ, nhấn mạnh lợi ích tăng năng suất, tiết kiệm thời gian, dễ dùng, hoa hồng affiliate. Dùng emoji công nghệ, call to action dùng thử ngay. Phù hợp affiliate AI products.",
+    "best_posting_times": [
+      8,
+      9,
+      10,
+      12,
+      18,
+      19,
+      20
+    ],
+    "is_personal": false
+  }
+}

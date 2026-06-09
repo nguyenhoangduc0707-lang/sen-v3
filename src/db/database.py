@@ -71,8 +71,12 @@ def get_db():
 def init_db():
     """Khởi tạo database: tạo tất cả bảng nếu chưa tồn tại"""
     try:
-        # Import tất cả models để register với Base
-        from src.db.models import User, Task, CommissionLog, AIAffiliateProduct, TokenUsageHistory
+        # Import tất cả models để register với Base (include legacy for facebook_posts etc.)
+        from src.db.models import (
+            User, Task, CommissionLog, AIAffiliateProduct, TokenUsageHistory,
+            FacebookPost, Worker, ExecutionLog, DeadLetter,
+            AutomationTemplate, AutomationRule, AutomationLog,
+        )
         
         # Tạo bảng
         Base.metadata.create_all(bind=engine)
@@ -87,20 +91,26 @@ def init_db():
 
 def seed_sample_data():
     """Thêm dữ liệu mẫu nếu database trống"""
+    # Import models locally so the function is self-contained
+    # (they are not in global scope because init_db imports them locally)
+    from src.db.models import (
+        User, Task, AIAffiliateProduct, UserRole
+    )
+    from passlib.context import CryptContext
+
     db = SessionLocal()
     try:
         # Kiểm tra nếu đã có dữ liệu
         if db.query(User).count() == 0:
-            from src.db.models import UserRole
-            from passlib.context import CryptContext
             
             pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
             
-            # Tạo Admin mặc định
+            # Tạo Admin mặc định (sử dụng env hoặc mặc định an toàn)
+            admin_pass = os.getenv("ADMIN_INITIAL_PASSWORD", "ChangeMeImmediately123!")
             admin = User(
                 username="admin_system",
                 email="admin@senv3.com",
-                hashed_password=pwd_context.hash("Admin@123456"),
+                hashed_password=pwd_context.hash(admin_pass),
                 role=UserRole.ADMIN,
                 token_quota=1000000,  # Admin có quota lớn
                 tokens_used=0,
@@ -110,11 +120,12 @@ def seed_sample_data():
             db.add(admin)
             db.flush()
             
-            # Tạo Member mẫu
+            # Tạo Member mẫu (sử dụng env)
+            member_pass = os.getenv("MEMBER_INITIAL_PASSWORD", "ChangeMe123!")
             member = User(
                 username="member_demo",
                 email="member@senv3.com",
-                hashed_password=pwd_context.hash("Member@123456"),
+                hashed_password=pwd_context.hash(member_pass),
                 role=UserRole.MEMBER,
                 token_quota=50000,
                 tokens_used=0,

@@ -1,55 +1,110 @@
 import json
-from typing import Dict, Tuple
+import random
+from typing import List, Dict, Any, Tuple
 
 class BlindComparator:
-    def __init__(self):
-        # Rubric đánh giá: mỗi tiêu chí điểm 1-5
-        self.rubric = {
-            "content_relevance": "Nội dung liên quan đến campaign?",
-            "call_to_action": "Có kêu gọi hành động rõ ràng?",
-            "engagement": "Mức độ hấp dẫn, sáng tạo?",
-            "formatting": "Định dạng, dấu câu, chữ hoa/thường?",
-            "affiliate_link_presence": "Có link affiliate hợp lệ?"
-        }
+    """
+    Blind Comparator Agent - So sánh mù giữa các phiên bản nội dung (A/B testing)
+    Dựa trên rubric_affiliate.json theo tài liệu kiến trúc SEN V3.
+    """
 
-    def _score_article(self, article: str) -> Dict:
-        # Hàm chấm điểm đơn giản dựa trên heuristic
-        # Bạn có thể thay bằng LLM hoặc rule phức tạp hơn
+    def __init__(self, rubric_path: str = "config/rubric_affiliate.json"):
+        self.rubric = self._load_rubric(rubric_path)
+
+    def _load_rubric(self, path: str) -> Dict[str, Any]:
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            print(f"[BlindComparator] {path} not found, using defaults.")
+            return {
+                "criteria": [
+                    {"name": "clarity", "weight": 25, "description": "Rõ ràng, dễ hiểu"},
+                    {"name": "persuasiveness", "weight": 30, "description": "Tính thuyết phục"},
+                    {"name": "engagement", "weight": 25, "description": "Thu hút người đọc"},
+                    {"name": "cta_effectiveness", "weight": 20, "description": "Hiệu quả kêu gọi hành động"}
+                ]
+            }
+
+    def compare(self, versions: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """
+        So sánh mù giữa nhiều phiên bản nội dung.
+
+        Args:
+            versions: [{"id": "v1", "content": "..."}, ...]
+
+        Returns:
+            {
+                "winner_id": str,
+                "scores": dict,
+                "ranking": list
+            }
+        """
+        if len(versions) < 2:
+            return {"error": "Need at least 2 versions to compare"}
+
+        # Shuffle for true blind comparison
+        shuffled = versions.copy()
+        random.shuffle(shuffled)
+
         scores = {}
-        # relevance: có chứa tên campaign? (giả sử campaign name in article)
-        # Ở đây ta demo: cứ cho điểm cao nếu có từ "sale" hoặc "giảm giá"
-        scores["content_relevance"] = 5 if "sale" in article.lower() else 3
-        scores["call_to_action"] = 5 if "mua ngay" in article.lower() else 3
-        scores["engagement"] = 5 if any(w in article for w in ["🌟", "🔥", "🎯"]) else 3
-        scores["formatting"] = 5 if article.count("!") >= 1 else 3
-        scores["affiliate_link_presence"] = 5 if "https://" in article else 1
-        return scores
+        for v in shuffled:
+            scores[v["id"]] = self._evaluate(v["content"])
 
-    def compare(self, article_a: str, article_b: str) -> Tuple[str, Dict]:
-        scores_a = self._score_article(article_a)
-        scores_b = self._score_article(article_b)
-        total_a = sum(scores_a.values())
-        total_b = sum(scores_b.values())
+        # Rank by total weighted score
+        ranking = sorted(
+            [{"id": vid, "total": s["total"], "details": s["details"]} 
+             for vid, s in scores.items()],
+            key=lambda x: x["total"],
+            reverse=True
+        )
 
-        if total_a > total_b:
-            winner = "A"
-            reasoning = f"Điểm A ({total_a}) cao hơn B ({total_b})"
-        elif total_b > total_a:
-            winner = "B"
-            reasoning = f"Điểm B ({total_b}) cao hơn A ({total_a})"
-        else:
-            winner = "TIE"
-            reasoning = "Hai bài viết bằng điểm nhau"
-
-        return winner, {
-            "winner": winner,
-            "reasoning": reasoning,
-            "scores": {"A": scores_a, "B": scores_b}
+        return {
+            "winner_id": ranking[0]["id"],
+            "scores": scores,
+            "ranking": ranking
         }
+
+    def _evaluate(self, content: str) -> Dict[str, Any]:
+        """Score a single piece of content against the rubric (0-100 weighted)."""
+        results = {}
+        total = 0.0
+
+        for criterion in self.rubric.get("criteria", []):
+            name = criterion["name"]
+            weight = criterion["weight"]
+
+            if name == "clarity":
+                # Simple heuristic: shorter average sentence = clearer
+                sentences = max(1, content.count('.') + content.count('!') + content.count('?'))
+                avg_len = len(content.split()) / sentences
+                raw = 100 if avg_len < 15 else (75 if avg_len < 22 else 45)
+            elif name == "persuasiveness":
+                persuasive = ["tốt nhất", "uy tín", "chất lượng cao", "tiết kiệm", "giảm giá", "độc quyền", "hot"]
+                count = sum(1 for w in persuasive if w.lower() in content.lower())
+                raw = min(100, 40 + count * 12)
+            elif name == "engagement":
+                emojis = sum(1 for c in content if c in "🔥🌟💸🚀🎯✨")
+                exclamations = content.count('!')
+                raw = min(100, 50 + emojis * 8 + exclamations * 6)
+            elif name == "cta_effectiveness":
+                ctas = ["mua ngay", "đặt hàng", "sở hữu ngay", "click", "tại đây", "liên hệ ngay"]
+                count = sum(1 for c in ctas if c.lower() in content.lower())
+                raw = min(100, count * 25)
+            else:
+                raw = 70
+
+            weighted = raw * weight / 100
+            results[name] = {"raw": round(raw, 1), "weighted": round(weighted, 1)}
+            total += weighted
+
+        return {"total": round(total, 1), "details": results}
+
 
 if __name__ == "__main__":
+    # Honest test
     comp = BlindComparator()
-    art_a = "🌟 Siêu sale! Điện thoại giảm giá 50%. Mua ngay tại link: https://aff.com/1"
-    art_b = "Điện thoại mới. Có bán ở shop."
-    winner, result = comp.compare(art_a, art_b)
+    v1 = {"id": "v1", "content": "🔥 Siêu sale! Điện thoại giảm 50%. Mua ngay tại https://aff.link/1 #hot #affiliate"}
+    v2 = {"id": "v2", "content": "Điện thoại mới. Bán ở đây."}
+    result = comp.compare([v1, v2])
     print(json.dumps(result, indent=2, ensure_ascii=False))

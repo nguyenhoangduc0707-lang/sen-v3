@@ -15,9 +15,18 @@ import os
 
 from src.db.database import get_db
 from src.db.models import User
+from src.config import settings
 
-# Cấu hình JWT
-SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-change-in-production-2024-senv3")
+# Cấu hình JWT - aligned with central settings (JWT_SECRET_KEY)
+# Use default from settings for dev (with warning), require proper in production
+SECRET_KEY = settings.JWT_SECRET_KEY
+if not SECRET_KEY or len(SECRET_KEY) < 32:
+    import warnings
+    warnings.warn(
+        "⚠️ SECRET_KEY (JWT) is not properly set in .env (must be >=32 chars). "
+        "Using value from settings (change in production!).",
+        UserWarning
+    )
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "1440"))  # 24 hours
 
@@ -44,8 +53,12 @@ def authenticate_user(db: Session, username: str, password: str) -> Optional[Use
     return user
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
-    """Tạo JWT token"""
+    """Tạo JWT token.
+    Ensure 'sub' (subject) is always a string (required by python-jose / JWT spec).
+    """
     to_encode = data.copy()
+    if "sub" in to_encode:
+        to_encode["sub"] = str(to_encode["sub"])
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
@@ -72,10 +85,11 @@ async def get_current_user(
     try:
         token = credentials.credentials
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id: int = payload.get("sub")
-        if user_id is None:
+        sub = payload.get("sub")
+        if sub is None:
             raise credentials_exception
-    except JWTError:
+        user_id = int(sub)  # sub must be castable to int (we store user.id as string in token)
+    except (JWTError, ValueError, TypeError):
         raise credentials_exception
     
     user = db.query(User).filter(User.id == user_id).first()
@@ -98,7 +112,25 @@ def get_current_admin(current_user: User = Depends(get_current_user)) -> User:
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Admin access required"
         )
-    return current_user
+
+def get_current_user_optional(
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(HTTPBearer(auto_error=False)),
+    db: Session = Depends(get_db)
+) -> Optional[User]:
+    """Optional auth - returns user if token valid, else None. For public-ish endpoints."""
+    if credentials is None:
+        return None
+    try:
+        token = credentials.credentials
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        sub = payload.get("sub")
+        if sub is None:
+            return None
+        user_id = int(sub)
+        user = db.query(User).filter(User.id == user_id).first()
+        return user
+    except Exception:
+        return None
 
 def get_current_member(current_user: User = Depends(get_current_user)) -> User:
     """Chỉ cho phép Member truy cập"""

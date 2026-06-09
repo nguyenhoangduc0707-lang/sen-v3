@@ -1,0 +1,14 @@
+{
+  "criteria": [
+    {"name": "clarity", "weight": 25, "description": "Rõ ràng, dễ hiểu"},
+    {"name": "persuasiveness", "weight": 30, "description": "Tính thuyết phục"},
+    {"name": "engagement", "weight": 25, "description": "Thu hút người đọc"},
+    {"name": "cta_effectiveness", "weight": 20, "description": "Hiệu quả kêu gọi hành động"}
+  ],
+  "scoring": {
+    "excellent": 90,
+    "good": 70,
+    "fair": 50,
+    "poor": 30
+  }
+}

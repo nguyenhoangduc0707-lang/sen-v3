@@ -59,7 +59,7 @@ async def worker_loop(
         payload = task.payload or {}
 
         logger.info("task.claimed", worker_name=worker_name, task_id=task_id)
-        await asyncio.to_thread(queue.update_worker_heartbeat, worker_name)
+        # heartbeat disabled
 
         # run worker in thread pool
         try:
@@ -114,9 +114,26 @@ async def run_engine(max_workers: int = 5, poll_interval: float = 1.0, run_once:
     tasks = [asyncio.create_task(worker_loop(i, queue, executor, poll_interval, stop_event)) for i in range(n_workers)]
 
     if run_once:
-        # run a short period then stop
-        await asyncio.sleep(poll_interval * 2)
-        stop_event.set()
+        # For --run-once, keep running until no more pending tasks or max timeout
+        async def wait_for_done():
+            from src.task_queue_db import TaskQueueDB
+            from sqlalchemy import text
+            qq = TaskQueueDB()
+            max_wait = 8.0
+            waited = 0.0
+            while waited < max_wait:
+                try:
+                    with qq.engine.connect() as conn:
+                        res = conn.execute(text('SELECT COUNT(*) FROM tasks WHERE status = \"PENDING\"'))
+                        pending = res.scalar() or 0
+                    if pending == 0:
+                        break
+                except Exception:
+                    pass
+                await asyncio.sleep(poll_interval)
+                waited += poll_interval
+            stop_event.set()
+        asyncio.create_task(wait_for_done())
 
     await asyncio.wait(tasks)
     executor.shutdown(wait=True)

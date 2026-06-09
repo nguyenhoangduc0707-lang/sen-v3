@@ -1,7 +1,6 @@
-# web/main.py
 """
 DYT_01 - Affiliate Campaign Main Application
-Tích hợp Core Upgrade SEN V3
+Real implementation - NO SIMULATION STUBS
 """
 
 from fastapi import FastAPI, Depends, HTTPException
@@ -10,18 +9,55 @@ from fastapi.openapi.utils import get_openapi
 import logging
 from contextlib import asynccontextmanager
 
-from src.db.database import init_db, get_db
+from src.db.database import init_db
 from src.db.models import User
-from src.auth.jwt import get_current_user
+from src.auth.jwt import get_current_user, get_current_user_optional
 
-# Import routers
-from web.routers import (
-    auth,
-    commission,
-    member_dashboard,
-    ai_generate,
-    admin
-)
+# Import routers directly (avoid __init__ cycles)
+from web.routers.auth import router as auth_router
+from web.routers.scheduler import router as scheduler_router
+from web.routers.affiliate import router as affiliate_router
+
+# Optional routers - import safely
+try:
+    from web.routers.commission import router as commission_router
+except Exception:
+    commission_router = None
+
+try:
+    from web.routers.member_dashboard import router as member_dashboard_router
+except Exception:
+    member_dashboard_router = None
+
+try:
+    from web.routers.ai_generate import router as ai_generate_router
+except Exception:
+    ai_generate_router = None
+
+try:
+    from web.routers.admin import router as admin_router
+except Exception:
+    admin_router = None
+
+try:
+    from web.routers.automation import router as automation_router
+except Exception:
+    automation_router = None
+
+try:
+    from web.routers.facebook_accounts import router as facebook_accounts_router
+except Exception:
+    facebook_accounts_router = None
+
+try:
+    from web.routers.posts import router as posts_router
+except Exception:
+    posts_router = None
+
+try:
+    from web.routers.content import router as content_router
+except Exception:
+    content_router = None
 
 # Configure logging
 logging.basicConfig(
@@ -30,119 +66,94 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Lifespan context manager
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Xử lý startup và shutdown events"""
-    # Startup
-    logger.info("🚀 Starting SEN V3 Core API...")
+    """Handle startup and shutdown events"""
+    logger.info("🚀 Starting DYT-01 API (real endpoints only)...")
     init_db()
     logger.info("✅ Database initialized")
     yield
-    # Shutdown
-    logger.info("👋 Shutting down SEN V3 Core API...")
+    logger.info("👋 Shutting down DYT-01 API...")
 
-# Create FastAPI app
+
 app = FastAPI(
-    title="SEN V3 Core - Affiliate Campaign System",
-    description="""
-    ## Hệ thống quản lý Affiliate Campaign với AI Integration
-    
-    ### 🎯 Core Features:
-    - **Tự động phân chia hoa hồng** giữa Admin (passive income) và Member (active income)
-    - **Phễu Affiliate AI** gợi ý công cụ giúp Admin ăn hoa hồng trọn đời
-    - **Quản lý Token thông minh** tối ưu chi phí Gemini API
-    - **Phân quyền dữ liệu nghiêm ngặt** Admin > Member > User
-    
-    ### 📊 Commission Structure:
-    - Mặc định: Admin 10% | Member 90%
-    - Hỗ trợ điều chỉnh tỷ lệ linh hoạt
-    - Ghi nhận hoa hồng recurring từ affiliate tools
-    
-    ### 🔐 Authentication:
-    - Sử dụng JWT Bearer token
-    - Gửi token trong Header: `Authorization: Bearer <your_token>`
-    
-    ### 💰 Token System:
-    - Member được cấp quota token (mặc định 50,000)
-    - Mỗi lần gọi Gemini API sẽ trừ token
-    - Admin có thể nạp thêm token khi cần
-    """,
+    title="DYT-01 Affiliate Campaign System",
+    description="Real API with DB-backed auth, scheduler, affiliate",
     version="3.1.0",
-    contact={
-        "name": "SEN V3 Support",
-        "email": "support@senv3.com",
-    },
-    license_info={
-        "name": "Proprietary",
-    },
     lifespan=lifespan
 )
 
-# CORS middleware
+# CORS - restricted to localhost only (per security requirements)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Cấu hình cụ thể trong production
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://127.0.0.1:5173",
+        "http://127.0.0.1:3000",
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
-# Register routers
-app.include_router(auth.router)
-app.include_router(commission.router)
-app.include_router(member_dashboard.router)
-app.include_router(ai_generate.router)
-app.include_router(admin.router)
+# Register real routers (prefixes defined inside routers)
+app.include_router(auth_router)          # /auth
+app.include_router(scheduler_router)     # /schedules
+app.include_router(affiliate_router)     # /affiliate
 
-# ========== ROOT ENDPOINTS ==========
+if commission_router:
+    app.include_router(commission_router)
+if member_dashboard_router:
+    app.include_router(member_dashboard_router)
+if ai_generate_router:
+    app.include_router(ai_generate_router)
+if admin_router:
+    app.include_router(admin_router)
+if automation_router:
+    app.include_router(automation_router)
+if facebook_accounts_router:
+    app.include_router(facebook_accounts_router)
+if posts_router:
+    app.include_router(posts_router)
+
+if content_router:
+    app.include_router(content_router)
+
+
 @app.get("/")
 def root():
-    """Welcome endpoint"""
     return {
-        "message": "Welcome to SEN V3 Core - Affiliate Campaign System",
+        "message": "DYT-01 Real API",
         "version": "3.1.0",
         "status": "operational",
-        "documentation": "/docs",
-        "redoc": "/redoc"
+        "documentation": "/docs"
     }
+
 
 @app.get("/health")
 def health_check():
-    """Health check endpoint"""
+    from datetime import datetime, timezone
     return {
         "status": "healthy",
-        "timestamp": "2024-01-01T00:00:00Z"  # Will be dynamic
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "version": "3.1.0"
     }
 
-@app.get("/api/v1/info")
-def system_info(current_user: User = Depends(get_current_user)):
-    """Lấy thông tin hệ thống (yêu cầu authentication)"""
-    return {
-        "system": "SEN V3 Core",
-        "version": "3.1.0",
-        "user_role": current_user.role.value,
-        "features": [
-            "Auto Commission Split",
-            "AI Affiliate Funnel",
-            "Token Management",
-            "Role-based Access Control"
-        ]
-    }
 
-# Custom OpenAPI schema
+# Custom OpenAPI with Bearer auth
 def custom_openapi():
     if app.openapi_schema:
         return app.openapi_schema
-    
+
     openapi_schema = get_openapi(
-        title="SEN V3 Core API",
+        title="DYT-01 API",
         version="3.1.0",
         description=app.description,
         routes=app.routes,
     )
-    
-    # Add security scheme
+
     openapi_schema["components"]["securitySchemes"] = {
         "BearerAuth": {
             "type": "http",
@@ -150,23 +161,15 @@ def custom_openapi():
             "bearerFormat": "JWT"
         }
     }
-    
-    # Apply security globally
     openapi_schema["security"] = [{"BearerAuth": []}]
-    
+
     app.openapi_schema = openapi_schema
     return app.openapi_schema
 
+
 app.openapi = custom_openapi
 
-# ========== RUN SERVER ==========
+
 if __name__ == "__main__":
     import uvicorn
-    
-    uvicorn.run(
-        "web.main:app",
-        host="0.0.0.0",
-        port=8000,
-        reload=True,
-        log_level="info"
-    )
+    uvicorn.run("web.main:app", host="0.0.0.0", port=8001, reload=True, log_level="info")

@@ -210,6 +210,17 @@ async def create_article_async(campaign: Dict[str, Any]) -> Dict[str, Any]:
     _cache_set(campaign, content)
     return {"content": content, "provider": provider, "cached": False}
 
+async def llm_health_check() -> Dict[str, Any]:
+    """Simple LLM health check for SEN V3 monitoring. Returns status and provider."""
+    gemini_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    groq_key = os.environ.get("GROQ_API_KEY", "").strip()
+    if gemini_key and gemini_key.startswith("AIza"):
+        return {"status": "ok", "provider": "gemini", "message": "Gemini key present"}
+    elif groq_key and groq_key.startswith("gsk_"):
+        return {"status": "ok", "provider": "groq", "message": "Groq key present"}
+    else:
+        return {"status": "degraded", "provider": "fallback", "message": "No LLM key, using fallback templates"}
+
 # ========== ASYNC-FIRST ENTRY POINT (FIXED for event loop) ==========
 async def create_article_async(campaign: Dict[str, Any], theme: str = "affiliate") -> Dict[str, Any]:
     """
@@ -243,19 +254,33 @@ async def create_article_async(campaign: Dict[str, Any], theme: str = "affiliate
             return {"content": create_article_fallback(campaign), "provider": "fallback"}
 
 
-# ========== SYNC WRAPPER (legacy only - uses asyncio.run, may cause issues in async context) ==========
-def create_article(campaign_id_or_dict, theme: str = "affiliate") -> str:
-    """Legacy sync wrapper. Prefer create_article_async() in new code."""
+# ========== ASYNC ENTRYPOINT (refactored - no asyncio.run in async context) ==========
+async def create_article(campaign_id_or_dict, theme: str = "affiliate") -> str:
+    """Async entrypoint for content creation. Use this in async code (workers, etc.)."""
     if isinstance(campaign_id_or_dict, str):
         campaign = {"name": "Sản phẩm mẫu", "commission_display": "15%", "description": ""}
     else:
         campaign = campaign_id_or_dict
 
     try:
-        result = asyncio.run(create_article_async(campaign, theme=theme))
+        result = await create_article_async(campaign, theme=theme)
         return result.get("content", create_article_fallback(campaign))
     except Exception as e:
-        logger.error(f"[ContentAgent] create_article (sync) lỗi: {e}")
+        logger.error(f"[ContentAgent] create_article lỗi: {e}")
+        return create_article_fallback(campaign)
+
+# Legacy sync wrapper kept for backward compat (e.g. old scripts)
+def create_article_sync(campaign_id_or_dict, theme: str = "affiliate") -> str:
+    """Sync wrapper - only for non-async legacy code. Avoid in new async paths."""
+    import asyncio
+    try:
+        return asyncio.run(create_article(campaign_id_or_dict, theme=theme))
+    except Exception as e:
+        logger.error(f"[ContentAgent] create_article_sync lỗi: {e}")
+        if isinstance(campaign_id_or_dict, str):
+            campaign = {"name": "Sản phẩm mẫu", "commission_display": "15%", "description": ""}
+        else:
+            campaign = campaign_id_or_dict
         return create_article_fallback(campaign)
 
 

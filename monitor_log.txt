@@ -81073,3 +81073,294 @@ liate links
 [2026-06-04 19:16:41] CPU: 7.3% | RAM: 71.7% | Free: 4GB
 [2026-06-04 19:16:41] Python processes: 5
 [2026-06-04 19:16:41] Disk: 461GB free / 465GB total
+[2026-06-09 00:33:38] ==================================================
+[2026-06-09 00:33:38] MONITOR WORKER STARTED
+[2026-06-09 00:33:38] Check interval: 10 seconds
+[2026-06-09 00:33:38] ==================================================
+[2026-06-09 00:33:38] 
+--- Cycle 1 ---
+[2026-06-09 00:33:39] CPU: 8.1% | RAM: 40.2% | Free: 9GB
+[2026-06-09 00:33:39] Python processes: 5
+[2026-06-09 00:33:39] Disk: 459GB free / 465GB total
+[2026-06-09 00:33:39] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:33:49] 
+--- Cycle 2 ---
+[2026-06-09 00:33:50] CPU: 8.2% | RAM: 40.3% | Free: 9GB
+[2026-06-09 00:33:50] Python processes: 5
+[2026-06-09 00:33:50] Disk: 459GB free / 465GB total
+[2026-06-09 00:33:50] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:34:00] 
+--- Cycle 3 ---
+[2026-06-09 00:34:01] CPU: 18.6% | RAM: 40.6% | Free: 9GB
+[2026-06-09 00:34:01] Python processes: 6
+[2026-06-09 00:34:01] Disk: 459GB free / 465GB total
+[2026-06-09 00:34:01] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:34:11] 
+--- Cycle 4 ---
+[2026-06-09 00:34:12] CPU: 16.0% | RAM: 40.7% | Free: 9GB
+[2026-06-09 00:34:13] Python processes: 5
+[2026-06-09 00:34:13] Disk: 459GB free / 465GB total
+[2026-06-09 00:34:13] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:34:23] 
+--- Cycle 5 ---
+[2026-06-09 00:34:24] CPU: 6.6% | RAM: 39.0% | Free: 9GB
+[2026-06-09 00:34:24] Python processes: 5
+[2026-06-09 00:34:24] Disk: 459GB free / 465GB total
+[2026-06-09 00:34:24] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:34:34] 
+--- Cycle 6 ---
+[2026-06-09 00:34:35] CPU: 5.1% | RAM: 38.6% | Free: 9GB
+[2026-06-09 00:34:35] Python processes: 5
+[2026-06-09 00:34:35] Disk: 459GB free / 465GB total
+[2026-06-09 00:34:35] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:34:45] 
+--- Cycle 7 ---
+[2026-06-09 00:34:46] CPU: 10.9% | RAM: 39.0% | Free: 9GB
+[2026-06-09 00:34:46] Python processes: 5
+[2026-06-09 00:34:46] Disk: 459GB free / 465GB total
+[2026-06-09 00:34:46] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:34:56] 
+--- Cycle 8 ---
+[2026-06-09 00:34:57] CPU: 4.3% | RAM: 38.6% | Free: 9GB
+[2026-06-09 00:34:57] Python processes: 6
+[2026-06-09 00:34:57] Disk: 459GB free / 465GB total
+[2026-06-09 00:34:57] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:35:07] 
+--- Cycle 9 ---
+[2026-06-09 00:35:08] CPU: 0.8% | RAM: 38.0% | Free: 9GB
+[2026-06-09 00:35:08] Python processes: 5
+[2026-06-09 00:35:08] Disk: 459GB free / 465GB total
+[2026-06-09 00:35:08] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:35:18] 
+--- Cycle 10 ---
+[2026-06-09 00:35:19] CPU: 6.2% | RAM: 38.5% | Free: 9GB
+[2026-06-09 00:35:19] Python processes: 5
+[2026-06-09 00:35:19] Disk: 459GB free / 465GB total
+[2026-06-09 00:35:19] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:35:29] 
+--- Cycle 11 ---
+[2026-06-09 00:35:30] CPU: 5.9% | RAM: 38.5% | Free: 9GB
+[2026-06-09 00:35:30] Python processes: 6
+[2026-06-09 00:35:30] Disk: 459GB free / 465GB total
+[2026-06-09 00:35:30] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:35:40] 
+--- Cycle 12 ---
+[2026-06-09 00:35:41] CPU: 3.5% | RAM: 38.5% | Free: 9GB
+[2026-06-09 00:35:41] Python processes: 5
+[2026-06-09 00:35:41] Disk: 459GB free / 465GB total
+[2026-06-09 00:35:41] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:35:51] 
+--- Cycle 13 ---
+[2026-06-09 00:35:52] CPU: 11.4% | RAM: 38.7% | Free: 9GB
+[2026-06-09 00:35:52] Python processes: 5
+[2026-06-09 00:35:52] Disk: 459GB free / 465GB total
+[2026-06-09 00:35:52] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:36:02] 
+--- Cycle 14 ---
+[2026-06-09 00:36:03] CPU: 4.7% | RAM: 38.5% | Free: 9GB
+[2026-06-09 00:36:04] Python processes: 5
+[2026-06-09 00:36:04] Disk: 459GB free / 465GB total
+[2026-06-09 00:36:04] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:36:14] 
+--- Cycle 15 ---
+[2026-06-09 00:36:15] CPU: 7.9% | RAM: 38.6% | Free: 9GB
+[2026-06-09 00:36:15] Python processes: 5
+[2026-06-09 00:36:15] Disk: 459GB free / 465GB total
+[2026-06-09 00:36:15] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:36:25] 
+--- Cycle 16 ---
+[2026-06-09 00:36:26] CPU: 0.4% | RAM: 38.6% | Free: 9GB
+[2026-06-09 00:36:26] Python processes: 5
+[2026-06-09 00:36:26] Disk: 459GB free / 465GB total
+[2026-06-09 00:36:26] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:36:36] 
+--- Cycle 17 ---
+[2026-06-09 00:36:37] CPU: 10.5% | RAM: 39.0% | Free: 9GB
+[2026-06-09 00:36:37] Python processes: 5
+[2026-06-09 00:36:37] Disk: 459GB free / 465GB total
+[2026-06-09 00:36:37] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:36:47] 
+--- Cycle 18 ---
+[2026-06-09 00:36:48] CPU: 6.7% | RAM: 38.5% | Free: 9GB
+[2026-06-09 00:36:48] Python processes: 5
+[2026-06-09 00:36:48] Disk: 459GB free / 465GB total
+[2026-06-09 00:36:48] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:36:58] 
+--- Cycle 19 ---
+[2026-06-09 00:36:59] CPU: 2.0% | RAM: 38.6% | Free: 9GB
+[2026-06-09 00:36:59] Python processes: 5
+[2026-06-09 00:36:59] Disk: 459GB free / 465GB total
+[2026-06-09 00:36:59] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:37:09] 
+--- Cycle 20 ---
+[2026-06-09 00:37:10] CPU: 9.0% | RAM: 38.7% | Free: 9GB
+[2026-06-09 00:37:10] Python processes: 5
+[2026-06-09 00:37:10] Disk: 459GB free / 465GB total
+[2026-06-09 00:37:10] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:37:20] 
+--- Cycle 21 ---
+[2026-06-09 00:37:21] CPU: 1.9% | RAM: 38.7% | Free: 9GB
+[2026-06-09 00:37:21] Python processes: 5
+[2026-06-09 00:37:21] Disk: 459GB free / 465GB total
+[2026-06-09 00:37:21] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:37:31] 
+--- Cycle 22 ---
+[2026-06-09 00:37:32] CPU: 1.2% | RAM: 38.6% | Free: 9GB
+[2026-06-09 00:37:32] Python processes: 5
+[2026-06-09 00:37:32] Disk: 459GB free / 465GB total
+[2026-06-09 00:37:32] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:37:42] 
+--- Cycle 23 ---
+[2026-06-09 00:37:43] CPU: 0.4% | RAM: 38.0% | Free: 9GB
+[2026-06-09 00:37:43] Python processes: 5
+[2026-06-09 00:37:43] Disk: 459GB free / 465GB total
+[2026-06-09 00:37:43] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:37:53] 
+--- Cycle 24 ---
+[2026-06-09 00:37:54] CPU: 0.0% | RAM: 37.8% | Free: 9GB
+[2026-06-09 00:37:55] Python processes: 5
+[2026-06-09 00:37:55] Disk: 459GB free / 465GB total
+[2026-06-09 00:37:55] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:38:05] 
+--- Cycle 25 ---
+[2026-06-09 00:38:06] CPU: 3.1% | RAM: 37.5% | Free: 9GB
+[2026-06-09 00:38:06] Python processes: 5
+[2026-06-09 00:38:06] Disk: 459GB free / 465GB total
+[2026-06-09 00:38:06] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:38:16] 
+--- Cycle 26 ---
+[2026-06-09 00:38:17] CPU: 0.8% | RAM: 38.3% | Free: 9GB
+[2026-06-09 00:38:17] Python processes: 6
+[2026-06-09 00:38:17] Disk: 459GB free / 465GB total
+[2026-06-09 00:38:17] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:38:27] 
+--- Cycle 27 ---
+[2026-06-09 00:38:28] CPU: 2.3% | RAM: 38.4% | Free: 9GB
+[2026-06-09 00:38:28] Python processes: 5
+[2026-06-09 00:38:28] Disk: 459GB free / 465GB total
+[2026-06-09 00:38:28] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:38:38] 
+--- Cycle 28 ---
+[2026-06-09 00:38:39] CPU: 9.3% | RAM: 38.5% | Free: 9GB
+[2026-06-09 00:38:39] Python processes: 5
+[2026-06-09 00:38:39] Disk: 459GB free / 465GB total
+[2026-06-09 00:38:39] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:38:49] 
+--- Cycle 29 ---
+[2026-06-09 00:38:50] CPU: 0.8% | RAM: 38.3% | Free: 9GB
+[2026-06-09 00:38:50] Python processes: 5
+[2026-06-09 00:38:50] Disk: 459GB free / 465GB total
+[2026-06-09 00:38:50] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:39:00] 
+--- Cycle 30 ---
+[2026-06-09 00:39:01] CPU: 0.4% | RAM: 38.2% | Free: 9GB
+[2026-06-09 00:39:01] Python processes: 5
+[2026-06-09 00:39:01] Disk: 459GB free / 465GB total
+[2026-06-09 00:39:01] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:39:11] 
+--- Cycle 31 ---
+[2026-06-09 00:39:12] CPU: 5.9% | RAM: 38.4% | Free: 9GB
+[2026-06-09 00:39:12] Python processes: 5
+[2026-06-09 00:39:12] Disk: 459GB free / 465GB total
+[2026-06-09 00:39:12] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:39:22] 
+--- Cycle 32 ---
+[2026-06-09 00:39:23] CPU: 1.6% | RAM: 38.0% | Free: 9GB
+[2026-06-09 00:39:23] Python processes: 5
+[2026-06-09 00:39:23] Disk: 459GB free / 465GB total
+[2026-06-09 00:39:23] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:39:33] 
+--- Cycle 33 ---
+[2026-06-09 00:39:34] CPU: 0.8% | RAM: 38.2% | Free: 9GB
+[2026-06-09 00:39:34] Python processes: 6
+[2026-06-09 00:39:34] Disk: 459GB free / 465GB total
+[2026-06-09 00:39:34] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:39:44] 
+--- Cycle 34 ---
+[2026-06-09 00:39:45] CPU: 7.4% | RAM: 38.0% | Free: 9GB
+[2026-06-09 00:39:46] Python processes: 5
+[2026-06-09 00:39:46] Disk: 459GB free / 465GB total
+[2026-06-09 00:39:46] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:39:56] 
+--- Cycle 35 ---
+[2026-06-09 00:39:57] CPU: 7.4% | RAM: 38.0% | Free: 9GB
+[2026-06-09 00:39:57] Python processes: 5
+[2026-06-09 00:39:57] Disk: 459GB free / 465GB total
+[2026-06-09 00:39:57] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:40:07] 
+--- Cycle 36 ---
+[2026-06-09 00:40:08] CPU: 12.5% | RAM: 38.0% | Free: 9GB
+[2026-06-09 00:40:08] Python processes: 5
+[2026-06-09 00:40:08] Disk: 459GB free / 465GB total
+[2026-06-09 00:40:08] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:40:18] 
+--- Cycle 37 ---
+[2026-06-09 00:40:19] CPU: 3.9% | RAM: 37.7% | Free: 9GB
+[2026-06-09 00:40:19] Python processes: 5
+[2026-06-09 00:40:19] Disk: 459GB free / 465GB total
+[2026-06-09 00:40:19] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:40:29] 
+--- Cycle 38 ---
+[2026-06-09 00:40:30] CPU: 2.8% | RAM: 37.7% | Free: 9GB
+[2026-06-09 00:40:30] Python processes: 5
+[2026-06-09 00:40:30] Disk: 459GB free / 465GB total
+[2026-06-09 00:40:30] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:40:40] 
+--- Cycle 39 ---
+[2026-06-09 00:40:41] CPU: 8.8% | RAM: 37.6% | Free: 9GB
+[2026-06-09 00:40:41] Python processes: 5
+[2026-06-09 00:40:41] Disk: 459GB free / 465GB total
+[2026-06-09 00:40:41] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:40:51] 
+--- Cycle 40 ---
+[2026-06-09 00:40:52] CPU: 9.0% | RAM: 37.9% | Free: 9GB
+[2026-06-09 00:40:52] Python processes: 5
+[2026-06-09 00:40:52] Disk: 459GB free / 465GB total
+[2026-06-09 00:40:52] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:41:02] 
+--- Cycle 41 ---
+[2026-06-09 00:41:03] CPU: 8.7% | RAM: 37.4% | Free: 9GB
+[2026-06-09 00:41:03] Python processes: 5
+[2026-06-09 00:41:03] Disk: 459GB free / 465GB total
+[2026-06-09 00:41:03] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:41:13] 
+--- Cycle 42 ---
+[2026-06-09 00:41:14] CPU: 3.1% | RAM: 37.1% | Free: 9GB
+[2026-06-09 00:41:14] Python processes: 5
+[2026-06-09 00:41:14] Disk: 459GB free / 465GB total
+[2026-06-09 00:41:14] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:41:24] 
+--- Cycle 43 ---
+[2026-06-09 00:41:25] CPU: 5.1% | RAM: 37.3% | Free: 9GB
+[2026-06-09 00:41:25] Python processes: 7
+[2026-06-09 00:41:25] Disk: 459GB free / 465GB total
+[2026-06-09 00:41:25] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:41:35] 
+--- Cycle 44 ---
+[2026-06-09 00:41:36] CPU: 1.2% | RAM: 37.7% | Free: 9GB
+[2026-06-09 00:41:36] Python processes: 7
+[2026-06-09 00:41:36] Disk: 459GB free / 465GB total
+[2026-06-09 00:41:36] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:41:46] 
+--- Cycle 45 ---
+[2026-06-09 00:41:47] CPU: 5.9% | RAM: 38.2% | Free: 9GB
+[2026-06-09 00:41:48] Python processes: 7
+[2026-06-09 00:41:48] Disk: 459GB free / 465GB total
+[2026-06-09 00:41:48] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:41:58] 
+--- Cycle 46 ---
+[2026-06-09 00:41:59] CPU: 6.6% | RAM: 37.9% | Free: 9GB
+[2026-06-09 00:41:59] Python processes: 7
+[2026-06-09 00:41:59] Disk: 459GB free / 465GB total
+[2026-06-09 00:41:59] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:42:09] 
+--- Cycle 47 ---
+[2026-06-09 00:42:10] CPU: 2.7% | RAM: 36.5% | Free: 10GB
+[2026-06-09 00:42:10] Python processes: 3
+[2026-06-09 00:42:10] Disk: 459GB free / 465GB total
+[2026-06-09 00:42:10] File affiliate_links.txt: 3 affiliate links
+[2026-06-09 00:42:10] 
+[*] Nhan Ctrl+C, dang dung...
+[2026-06-09 00:42:10] ==================================================
+[2026-06-09 00:42:10] MONITOR WORKER STOPPED. Total cycles: 47
+[2026-06-09 00:42:10] ==================================================

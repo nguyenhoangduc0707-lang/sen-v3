@@ -1,7 +1,0 @@
-# Affiliate Links - accesstrade
-# Generated at: 2026-06-02 20:11:31.308519
-##################################################
-
-https://api.accesstrade.vn/link/ACC_001
-https://api.accesstrade.vn/link/ACC_002
-https://api.accesstrade.vn/link/ACC_003

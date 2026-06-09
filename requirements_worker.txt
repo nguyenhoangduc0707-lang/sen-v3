@@ -1,3 +1,0 @@
-structlog
-sqlalchemy
-requests

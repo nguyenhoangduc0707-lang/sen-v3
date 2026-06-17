@@ -29,3 +29,5 @@ node_modules/
 
 gemini-cli/
 package-lock.json
+
+log.txt

@@ -21,3 +21,8 @@ foreplay_data.json
 worker_simple
 gemini-cli/
 package-lock.json
+
+# Gemini CLI
+gemini-cli/
+package-lock.json
+node_modules/

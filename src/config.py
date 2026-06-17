@@ -1,4 +1,3 @@
-
 from __future__ import annotations
 
 import os
@@ -103,16 +102,13 @@ class Settings(BaseSettings):
 settings = Settings()
 
 # Validate critical settings on startup
-# Kiểm tra nếu JWT_SECRET_KEY vẫn còn là giá trị mặc định
-DEFAULT_JWT_SECRET = "your-super-secret-key-change-in-production-min-32-chars"
-if settings.JWT_SECRET_KEY == DEFAULT_JWT_SECRET:
+if settings.JWT_SECRET_KEY == "your-super-secret-key-change-in-production-min-32-chars":
     import warnings
     warnings.warn(
         "⚠️ JWT_SECRET_KEY is using default value! Please change it in .env file for production!",
         UserWarning
     )
 
-# Kiểm tra độ dài JWT_SECRET_KEY
 if len(settings.JWT_SECRET_KEY) < 32:
     import warnings
     warnings.warn(

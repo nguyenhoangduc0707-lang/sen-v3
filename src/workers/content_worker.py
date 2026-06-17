@@ -1,6 +1,6 @@
 ﻿from src.base_worker import BaseWorker
 from typing import Any, Dict
-from content_creation_agent import create_article
+from src.content_creation_agent import create_article
 
 class ContentWorker(BaseWorker):
     description = "Generate affiliate/content using campaign info"
@@ -65,14 +65,14 @@ def get_content_agent():
     """Robust factory that works with current content_creation_agent.py"""
     try:
         # Try the advanced one first (if it has the class)
-        from content_creation_agent import ContentCreationAgent
+        from src.content_creation_agent import ContentCreationAgent
         return ContentCreationAgent()
     except (ImportError, AttributeError):
         pass
 
     # Fallback to existing module functions
     try:
-        from content_creation_agent import create_article
+        from src.content_creation_agent import create_article
         class _LegacyAgent:
             async def generate_affiliate_post(self, **kwargs):
                 # Adapt to existing create_article
@@ -143,7 +143,7 @@ class ContentWorker:
                 }
                 # Call the async version directly for best results
                 try:
-                    from content_creation_agent import create_article_async
+                    from src.content_creation_agent import create_article_async
                     agent_result = await create_article_async(campaign, theme="affiliate")
                     result = {
                         "status": "ok",

@@ -1,62 +1,21 @@
 ﻿# Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-.Python
 venv/
 env/
-ENV/
-.venv
-
-# Environment variables
-.env
-.env.local
-.env.*.local
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Logs
+*.db
+*.db-shm
+*.db-wal
+*.xlsx
 *.log
 logs/
-*.pid
-
-# Database
-*.db
-*.sqlite
-*.sqlite3
-
-# Test & coverage (Phase 4 cleanup)
-.pytest_cache/
-.coverage
-htmlcov/
-.coverage.*
-*.cover
-*.py,cover
-
-# Backup
-*.bak
-backup_*/
-*.backup
-
-# Test files
-test_*.py
-debug_*.py
-check_*.py
-temp_*.py
-*_temp.py
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Secrets
-*.pem
-*.key
-*.crt
-secrets/
-credentials.json
+temp/
+data/
+backups/
+credentials/
+.env
+*.secret
+sen_v3.db
+app.db
+foreplay_data.json
+worker_simple

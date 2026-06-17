@@ -1,6 +1,6 @@
 ﻿from src.base_worker import BaseWorker
 from typing import Any, Dict
-from content_creation_agent import create_article
+from src.content_creation_agent import create_article
 
 class ShopeeWorker(BaseWorker):
     description = "Generate Shopee affiliate content"
@@ -11,10 +11,6 @@ class ShopeeWorker(BaseWorker):
         return True
 
     def run(self, **kwargs) -> Dict[str, Any]:
-        """
-        New core style: prefer campaign_info or url passed in payload.
-        campaign_id support kept for compatibility but no longer does direct old DB.
-        """
         campaign_info = kwargs.get("campaign_info") or (kwargs.get("payload") or {}).get("campaign_info")
         url = kwargs.get("url") or (kwargs.get("payload") or {}).get("url")
 
@@ -27,7 +23,6 @@ class ShopeeWorker(BaseWorker):
                     "url": url
                 }
             else:
-                # Minimal fallback
                 campaign_info = {
                     "name": kwargs.get("name", "Shopee Product"),
                     "commission_display": "10%",

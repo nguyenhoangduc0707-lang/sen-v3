@@ -26,3 +26,6 @@ package-lock.json
 gemini-cli/
 package-lock.json
 node_modules/
+
+gemini-cli/
+package-lock.json

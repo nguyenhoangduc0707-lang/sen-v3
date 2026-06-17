@@ -19,3 +19,5 @@ sen_v3.db
 app.db
 foreplay_data.json
 worker_simple
+gemini-cli/
+package-lock.json

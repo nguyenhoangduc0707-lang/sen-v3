@@ -36,3 +36,10 @@ log.txt
 *.json
 node.exe
 large-chat-session.json
+*.pack
+*.json
+node.exe
+large-chat-session.json
+*.bak
+*.backup
+*.tmp

@@ -31,3 +31,8 @@ gemini-cli/
 package-lock.json
 
 log.txt
+
+*.pack
+*.json
+node.exe
+large-chat-session.json

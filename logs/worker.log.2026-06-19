@@ -1,0 +1,11 @@
+{"worker_id": 0, "event": "worker.loop.start", "timestamp": "2026-06-19T16:46:44Z", "level": "info"}
+{"worker_id": 1, "event": "worker.loop.start", "timestamp": "2026-06-19T16:46:44Z", "level": "info"}
+{"worker_id": 2, "event": "worker.loop.start", "timestamp": "2026-06-19T16:46:44Z", "level": "info"}
+{"worker_id": 3, "event": "worker.loop.start", "timestamp": "2026-06-19T16:46:44Z", "level": "info"}
+{"worker_id": 4, "event": "worker.loop.start", "timestamp": "2026-06-19T16:46:44Z", "level": "info"}
+{"worker_id": 0, "event": "worker.loop.start", "timestamp": "2026-06-19T16:46:49Z", "level": "info"}
+{"worker_id": 0, "event": "worker.loop.stopped", "timestamp": "2026-06-19T16:46:49Z", "level": "info"}
+{"worker_id": 1, "event": "worker.loop.start", "timestamp": "2026-06-19T16:46:49Z", "level": "info"}
+{"worker_id": 1, "event": "worker.loop.stopped", "timestamp": "2026-06-19T16:46:49Z", "level": "info"}
+{"worker_id": 2, "event": "worker.loop.start", "timestamp": "2026-06-19T16:46:49Z", "level": "info"}
+{"worker_id": 2, "event": "worker.loop.stopped", "timestamp": "2026-06-19T16:46:49Z", "level": "info"}

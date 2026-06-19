@@ -2,44 +2,46 @@
 __pycache__/
 *.py[cod]
 venv/
-env/
-*.db
-*.db-shm
-*.db-wal
-*.xlsx
-*.log
-logs/
-temp/
-data/
-backups/
-credentials/
 .env
+.env.local
+*.db
+*.sqlite
+*.log
+
+# Credentials & secrets
+credentials/
+*.auth.json
+*.auth
+*.pem
+*.key
+*.crt
+*.p12
 *.secret
-sen_v3.db
-app.db
-foreplay_data.json
-worker_simple
-gemini-cli/
-package-lock.json
+*.token
+*.cookie
+*.session
+*.storage_state
 
-# Gemini CLI
-gemini-cli/
-package-lock.json
+# Project specific
+facebook_auth.json
+save_facebook_auth.py
+config/.env.production
+*.xlsx
+*.xls
+
+# Node / frontend
 node_modules/
-
-gemini-cli/
+frontend/node_modules/
 package-lock.json
 
-log.txt
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
 
-*.pack
-*.json
-node.exe
-large-chat-session.json
-*.pack
-*.json
-node.exe
-large-chat-session.json
-*.bak
-*.backup
-*.tmp
+# Cloud
+cloud_sql_credentials.json
+service_account.json

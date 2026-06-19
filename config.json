@@ -1,0 +1,19 @@
+{
+  "accesstrade": {
+    "access_key": "key_thật_của_bạn",
+    "base_url": "https://api.accesstrade.vn/v1",
+    "timeout_seconds": 30
+  },
+  "notebooklm": {
+    "notebook_id": "5e64f86d-3f1b-44bd-a5c0-067fd839e3a5"
+  },
+  "picker": {
+    "min_commission_rate": 0.05,
+    "top_n": 5,
+    "loop_interval_minutes": 15
+  },
+  "cache": {
+    "db_path": "cache/ai_cache.db",
+    "default_ttl_seconds": 3600
+  }
+}

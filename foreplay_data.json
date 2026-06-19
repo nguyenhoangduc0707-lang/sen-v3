@@ -1,0 +1,435 @@
+{
+  "metadata": {
+    "success": true,
+    "message": "Your request has been processed successfully.",
+    "status_code": 200,
+    "processed_at": 1781683793940,
+    "cursor": "eyJ0cyI6IDE3ODE1OTMyMDAwMDAsICJpZCI6ICJ6ek1FOVFoU3dFYzhDU1ZySGxUUiJ9",
+    "filters": {
+      "live": true,
+      "niches": [
+        "fashion"
+      ],
+      "start_date": "2026-06-10T00:00:00",
+      "end_date": "2026-06-17T23:59:59"
+    },
+    "order": "most_relevant",
+    "count": 5
+  },
+  "data": [
+    {
+      "id": "qy0VWdcPGKWcKzjhYLoi",
+      "ad_id": "1350195933654904",
+      "name": "Artarium.com",
+      "brand_id": "WVdMN8koTYiQCPNqRJQi",
+      "description": "🕉️ Welcome the sacred Shiv Parivar into your space.\n\nA symbol of love, unity, protection, and prosperity, this beautifully detailed idol enhances every corner with divine energy.\n\n🙏 Spiritual Decor\n✨ Elegant Design\n🎁 Perfect Gift Choice",
+      "headline": "🕉️ Shiv Parivar Car Dashboard Idol",
+      "cta_title": "",
+      "categories": [
+        "Brand"
+      ],
+      "creative_targeting": null,
+      "languages": [
+        "English"
+      ],
+      "market_target": null,
+      "niches": [
+        "Fashion"
+      ],
+      "product_category": null,
+      "timestamped_transcription": [
+        {
+          "startTime": 0.0,
+          "endTime": 46.64,
+          "sentence": " सुन्दर त्ता लेकियों कैसी हम मह"
+        }
+      ],
+      "full_transcription": "सुन्दर त्ता लेकियों कैसी हम मह",
+      "cards": null,
+      "avatar": "https://r2.foreplay.co/b7cd7fb62a37b499a4f61f0e5847fa285d4f356d1b341fae47ab21799651c724.jpg",
+      "cta_type": "SHOP_NOW",
+      "display_format": "VIDEO",
+      "emotional_drivers": null,
+      "link_url": "https://artarium.com/products/shiv-parivar?variant=51304724365632",
+      "live": true,
+      "persona": null,
+      "publisher_platform": [
+        "facebook",
+        "instagram"
+      ],
+      "started_running": 1781679600000,
+      "thumbnail": "https://r2.foreplay.co/abe48f707f194990158273c817d64711aeb2f14f546bb7fa6be59ef751977d33.jpg",
+      "time_product_was_mentioned": null,
+      "type": "video",
+      "video": "https://r2.foreplay.co/5952a3ade06645d269b5e3023fbb38dc2cf08a7c51cf236a56373150d32fb40d.mp4",
+      "image": null,
+      "content_filter": null,
+      "running_duration": {
+        "seconds": 4193,
+        "minutes": 69,
+        "hours": 1,
+        "days": 0
+      },
+      "video_duration": 31.23,
+      "foreplay_url": "https://app.foreplay.co/discovery?ad=qy0VWdcPGKWcKzjhYLoi"
+    },
+    {
+      "id": "H2n4xS7ETePua7koSmDS",
+      "ad_id": "2261063668057313",
+      "name": "Ceres Life",
+      "brand_id": "PrWobt1VNKV3wiVs9stB",
+      "description": "If loving Beau is wrong, we don’t want to be right 🫶",
+      "headline": "Sign up for 10% off your first purchase",
+      "cta_title": "",
+      "categories": [
+        "Clothing (Brand)"
+      ],
+      "creative_targeting": null,
+      "languages": [
+        "English"
+      ],
+      "market_target": null,
+      "niches": [
+        "Fashion"
+      ],
+      "product_category": null,
+      "timestamped_transcription": [
+        {
+          "startTime": 0.0,
+          "endTime": 1.0,
+          "sentence": " Where's your top from?"
+        },
+        {
+          "startTime": 1.5,
+          "endTime": 3.0,
+          "sentence": " Oh, it is just series life."
+        },
+        {
+          "startTime": 3.1,
+          "endTime": 4.5,
+          "sentence": " Oh is this series life as well"
+        },
+        {
+          "startTime": 5.0,
+          "endTime": 6.5,
+          "sentence": " oh yeah but its a completely different look"
+        },
+        {
+          "startTime": 6.6,
+          "endTime": 8.5,
+          "sentence": " This the navy and butter stripe"
+        },
+        {
+          "startTime": 9.0,
+          "endTime": 10.5,
+          "sentence": " Alright so thiis in different colour too"
+        },
+        {
+          "startTime": 10.6,
+          "endTime": 12.0,
+          "sentence": " I saw Sophie Pierce wearing"
+        },
+        {
+          "startTime": 12.1,
+          "endTime": 13.0,
+          "sentence": " So had to have"
+        },
+        {
+          "startTime": 13.1,
+          "endTime": 14.5,
+          "sentence": " Who influenced this one"
+        },
+        {
+          "startTime": 15.0,
+          "endTime": 15.5,
+          "sentence": " No no one"
+        },
+        {
+          "startTime": 15.6,
+          "endTime": 16.0,
+          "sentence": " Just needed"
+        },
+        {
+          "startTime": 16.1,
+          "endTime": 16.5,
+          "sentence": " It"
+        },
+        {
+          "startTime": 16.6,
+          "endTime": 17.5,
+          "sentence": " In new red"
+        },
+        {
+          "startTime": 17.6,
+          "endTime": 18.5,
+          "sentence": " Okay now you're just having"
+        },
+        {
+          "startTime": 18.6,
+          "endTime": 19.5,
+          "sentence": " A laugh"
+        }
+      ],
+      "full_transcription": "Where's your top from? Oh, it is just series life. Oh is this series life as well oh yeah but its a completely different look This the navy and butter stripe Alright so thiis in different colour too I saw Sophie Pierce wearing So had to have Who influenced this one No no one Just needed It In new red Okay now you're just having A laugh",
+      "cards": null,
+      "avatar": "https://r2.foreplay.co/0e7b51ff9bdeca3ef1e28101d56873b74892441a16c86d7f80a999ae2d48310f.jpg",
+      "cta_type": "SHOP_NOW",
+      "display_format": "VIDEO",
+      "emotional_drivers": null,
+      "link_url": "https://cereslife.com/shop/tops/",
+      "live": true,
+      "persona": null,
+      "publisher_platform": [
+        "facebook",
+        "instagram",
+        "audience_network",
+        "messenger",
+        "threads"
+      ],
+      "started_running": 1781679600000,
+      "thumbnail": "https://r2.foreplay.co/24b7b93fac6483d79cb7c41c3aea6a6bedf3f1844dc7bd86a9dc5f5daab1d3a5.jpg",
+      "time_product_was_mentioned": null,
+      "type": "video",
+      "video": "https://r2.foreplay.co/ee95cb538ee0726d24c9a1d7d156378c216247b7e8613d9a6d1f69e999c17b33.mp4",
+      "image": null,
+      "content_filter": null,
+      "running_duration": {
+        "seconds": 4193,
+        "minutes": 69,
+        "hours": 1,
+        "days": 0
+      },
+      "video_duration": 20.16,
+      "foreplay_url": "https://app.foreplay.co/discovery?ad=H2n4xS7ETePua7koSmDS"
+    },
+    {
+      "id": "7kn4G0fEkGD2UnasZ5T8",
+      "ad_id": "2038921693683113",
+      "name": "Nintendo",
+      "brand_id": "AQUPUPgHPxZDu9IoOmew",
+      "description": "Blast off on a high-octane adventure!",
+      "headline": "Star Fox available 25 June!",
+      "cta_title": "",
+      "categories": [
+        "Brand"
+      ],
+      "creative_targeting": null,
+      "languages": [
+        "English"
+      ],
+      "market_target": null,
+      "niches": [
+        "Fashion"
+      ],
+      "product_category": null,
+      "timestamped_transcription": [
+        {
+          "startTime": 1.26,
+          "endTime": 3.26,
+          "sentence": " Let's rock and roll!"
+        },
+        {
+          "startTime": 5.26,
+          "endTime": 7.26,
+          "sentence": " It is a trap. Take him down"
+        }
+      ],
+      "full_transcription": "Let's rock and roll! It is a trap. Take him down",
+      "cards": null,
+      "avatar": "https://r2.foreplay.co/904d68abd5d9add77007424ad15c0f5595961a5b45799e2a0597883e18479520.jpg",
+      "cta_type": "LEARN_MORE",
+      "display_format": "VIDEO",
+      "emotional_drivers": null,
+      "link_url": "https://www.nintendo.com/au/games/nintendo-switch-2/star-fox/?utm_medium=paid_social&utm_source=meta&utm_campaign=StarFox%7Csoftware%7Cpreorder%7Cl_id_a2991cf615%7CNAL",
+      "live": true,
+      "persona": null,
+      "publisher_platform": [
+        "facebook",
+        "instagram",
+        "messenger"
+      ],
+      "started_running": 1781679600000,
+      "thumbnail": "https://r2.foreplay.co/6a5376357a658bb19403b6c60c1838ec9a776ae522daa5668af22e92c3ec3847.jpg",
+      "time_product_was_mentioned": null,
+      "type": "video",
+      "video": "https://r2.foreplay.co/796c0453d0064176e1eccf438191a6c0cf1bfd626f5b0510ff20424592c11100.mp4",
+      "image": null,
+      "content_filter": null,
+      "running_duration": {
+        "seconds": 4193,
+        "minutes": 69,
+        "hours": 1,
+        "days": 0
+      },
+      "video_duration": 15.12,
+      "foreplay_url": "https://app.foreplay.co/discovery?ad=7kn4G0fEkGD2UnasZ5T8"
+    },
+    {
+      "id": "zzldtk6dBcPUYxWu9j6V",
+      "ad_id": "1362532109078076",
+      "name": "Afrozeh",
+      "brand_id": "dn4HAoPxczjkWI6XRE6J",
+      "description": null,
+      "headline": "",
+      "cta_title": "",
+      "categories": [
+        "Clothing (Brand)"
+      ],
+      "creative_targeting": null,
+      "languages": null,
+      "market_target": null,
+      "niches": [
+        "Fashion"
+      ],
+      "product_category": null,
+      "timestamped_transcription": null,
+      "full_transcription": null,
+      "cards": [
+        {
+          "cta_text": "Shop Now",
+          "description": "Where summer light meets masterful craft — luminous lawn made to glow from morning to golden hour. The coveted edit.",
+          "headline": "Haze - Summer Edit'26",
+          "image": "https://r2.foreplay.co/c49e0a8e4fd94edbc59f8dc09a74a5b9b049ed743afb8d7e036e19d6689e91d9.jpg",
+          "video": null,
+          "link_description": "Limited Edition!",
+          "title": "Haze - Summer Edit'26",
+          "type": "image",
+          "timestamped_transcription": [],
+          "full_transcription": null,
+          "video_duration": null
+        },
+        {
+          "cta_text": "Shop Now",
+          "description": "Where summer light meets masterful craft — luminous lawn made to glow from morning to golden hour. The coveted edit.",
+          "headline": "Haze - Summer Edit'26",
+          "image": "https://r2.foreplay.co/df72fa79b463715a44b2d748398027c46085676992629ed5e122b5ed8c6cfdce.jpg",
+          "video": null,
+          "link_description": "Limited Edition!",
+          "title": "Haze - Summer Edit'26",
+          "type": "image",
+          "timestamped_transcription": [],
+          "full_transcription": null,
+          "video_duration": null
+        }
+      ],
+      "avatar": "https://r2.foreplay.co/190fbe9e04368505b3f205823baaa83f83c19b58d2fe3bcf61c6ff0012da27a9.jpg",
+      "cta_type": "SHOP_NOW",
+      "display_format": "DCO",
+      "emotional_drivers": null,
+      "link_url": "https://www.afrozeh.com/collections/the-haze-2026",
+      "live": true,
+      "persona": null,
+      "publisher_platform": [
+        "facebook",
+        "instagram",
+        "messenger",
+        "threads"
+      ],
+      "started_running": 1781593200000,
+      "thumbnail": null,
+      "time_product_was_mentioned": null,
+      "type": "dco",
+      "video": null,
+      "image": null,
+      "content_filter": null,
+      "running_duration": {
+        "seconds": 90593,
+        "minutes": 1509,
+        "hours": 25,
+        "days": 1
+      },
+      "video_duration": null,
+      "foreplay_url": "https://app.foreplay.co/discovery?ad=zzldtk6dBcPUYxWu9j6V"
+    },
+    {
+      "id": "zzME9QhSwEc8CSVrHlTR",
+      "ad_id": "1763647271349159",
+      "name": "INTIMISSIMI",
+      "brand_id": "cl8vXevWtgiCpdlukUdy",
+      "description": null,
+      "headline": "",
+      "cta_title": "",
+      "categories": [
+        "Clothing (Brand)"
+      ],
+      "creative_targeting": null,
+      "languages": null,
+      "market_target": null,
+      "niches": [
+        "Fashion"
+      ],
+      "product_category": null,
+      "timestamped_transcription": null,
+      "full_transcription": null,
+      "cards": [
+        {
+          "cta_text": "Shop Now",
+          "description": "Meet Ilenia - made with Microfibre material, practical and versatile for every use. Discover the collection only at Intimissimi",
+          "headline": "Microfibre ILENIA Bra",
+          "image": "https://r2.foreplay.co/51a623092e4513efb0e38024641eb32132bce0cf141c1e4bf462d2641a53c7d4.jpg",
+          "video": null,
+          "link_description": " ",
+          "title": "Microfibre ILENIA Bra",
+          "type": "image",
+          "timestamped_transcription": [],
+          "full_transcription": null,
+          "video_duration": null
+        },
+        {
+          "cta_text": "Shop Now",
+          "description": "Meet Ilenia - made with Microfibre material, practical and versatile for every use. Discover the collection only at Intimissimi",
+          "headline": "Microfibre ILENIA Bra",
+          "image": "https://r2.foreplay.co/85c5170d393ef14ab7c442ee3190100727b8c79f3099789e969c11d5cba25050.jpg",
+          "video": null,
+          "link_description": " ",
+          "title": "Microfibre ILENIA Bra",
+          "type": "image",
+          "timestamped_transcription": [],
+          "full_transcription": null,
+          "video_duration": null
+        },
+        {
+          "cta_text": "Shop Now",
+          "description": "Meet Ilenia - made with Microfibre material, practical and versatile for every use. Discover the collection only at Intimissimi",
+          "headline": "Microfibre ILENIA Bra",
+          "image": "https://r2.foreplay.co/fde39d02def0e2edb804d4a5989d082358c8f9687188e3d779804eb482115314.jpg",
+          "video": null,
+          "link_description": " ",
+          "title": "Microfibre ILENIA Bra",
+          "type": "image",
+          "timestamped_transcription": [],
+          "full_transcription": null,
+          "video_duration": null
+        }
+      ],
+      "avatar": "https://r2.foreplay.co/0a57dfdc504c104d0d91169d64b635915ad720f865b2da2e8629cf66a5884fdc.jpg",
+      "cta_type": "SHOP_NOW",
+      "display_format": "DCO",
+      "emotional_drivers": null,
+      "link_url": "https://www.intimissimi.com/uk/women/fibres/microfibre/",
+      "live": true,
+      "persona": null,
+      "publisher_platform": [
+        "facebook",
+        "instagram",
+        "messenger"
+      ],
+      "started_running": 1781593200000,
+      "thumbnail": null,
+      "time_product_was_mentioned": null,
+      "type": "dco",
+      "video": null,
+      "image": null,
+      "content_filter": null,
+      "running_duration": {
+        "seconds": 90593,
+        "minutes": 1509,
+        "hours": 25,
+        "days": 1
+      },
+      "video_duration": null,
+      "foreplay_url": "https://app.foreplay.co/discovery?ad=zzME9QhSwEc8CSVrHlTR"
+    }
+  ],
+  "error": null
+}

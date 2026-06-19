@@ -138,6 +138,15 @@ class FacebookAutoPoster(BaseWorker):
         """
         payload = kwargs.get("payload", {}) or kwargs
 
+        # Dry-run shortcut for tests: if payload contains dry_run=True, simulate success without browser
+        if isinstance(payload, dict) and payload.get("dry_run"):
+            return {
+                "status": "ok",
+                "summary": "dry_run - simulated post (no browser actions performed)",
+                "fanpage": payload.get("fanpage_key") or self.fanpage_key,
+                "post_url": None,
+            }
+
         # Resolve fanpage
         fanpage_key = payload.get("fanpage_key") or payload.get("fanpage") or payload.get("page") or self.fanpage_key
         page_url = payload.get("page_url") or payload.get("url")

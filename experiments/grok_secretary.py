@@ -19,7 +19,7 @@ load_dotenv()
 # ─────────────────────────────────────────────
 # CẤU HÌNH
 # ─────────────────────────────────────────────
-XAI_API_KEY = "xai-03LTsO59pyFeyp1Uk4Ako5SoPwPUOGOJzxIz2bshwc26oLWz1h5dNROtWc9iZV2au0eDzay7IIrDcAnZ"
+XAI_API_KEY = os.getenv("XAI_API_KEY", "")
 MODEL_FAST   = "grok-3-mini"   # Rẻ, nhanh – dùng cho câu hỏi đơn giản
 MODEL_SMART  = "grok-3"        # Mạnh hơn – dùng cho phân tích sâu
 
@@ -217,3 +217,4 @@ if __name__ == "__main__":
                 history = history[-20:]
         except Exception as e:
             print(f"\r❌ Lỗi: {e}")
+

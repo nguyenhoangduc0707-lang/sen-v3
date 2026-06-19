@@ -1,8 +1,10 @@
-"""
+﻿"""
 Tests for SchedulerWorker (Phase 3)
 """
 
 import pytest
+from src.task_queue_db_async import AsyncTaskQueueDB
+from sqlalchemy.ext.asyncio import create_async_engine
 from datetime import datetime, timedelta
 from src.workers.scheduler_worker import SchedulerWorker
 from src.task_queue_db_async import AsyncTaskQueueDB
@@ -23,13 +25,15 @@ async def test_scheduler_initialization():
 @pytest.mark.asyncio
 async def test_get_due_tasks():
     """Test fetching due tasks"""
-    # This is a simplified test; in real env would seed data
+    from src.db.database import Base
+    # Khởi tạo queue với URL (không phải engine)
     queue = AsyncTaskQueueDB("sqlite+aiosqlite:///:memory:")
+    engine = queue.engine
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
     scheduler = SchedulerWorker(queue)
-    # Assume DB has data or mock; for now just call
     tasks = await scheduler._get_due_tasks()
-    # In empty test DB, should be []
-    assert isinstance(tasks, list)
+    assert tasks == []
 
 
 @pytest.mark.asyncio
@@ -54,3 +58,9 @@ async def test_batch_processing():
     """Test that only up to 100 tasks are processed per cycle"""
     # The limit(100) is in the code
     assert True
+
+
+
+
+
+

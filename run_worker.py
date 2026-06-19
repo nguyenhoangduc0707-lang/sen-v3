@@ -1,37 +1,46 @@
 import asyncio
-import os
-from src.orchestrator_async import run_engine
-from src.orchestrator import register_worker
+import sys
+import logging
+from concurrent.futures import ThreadPoolExecutor
 
-from src.workers.echo_worker import EchoWorker
-from src.workers.shopee_worker import ShopeeWorker
-from src.workers.tiktok_worker import TikTokWorker
-from src.workers.content_worker import ContentWorker
-from src.workers.facebook_autoposter import FacebookAutoPoster
+from src.orchestrator_async import run_engine, worker_loop
+from src.task_queue_db import TaskQueueDB
+from src.orchestrator import registry, load_workers
 
-# Ensure DB tables exist (safe for SQLite)
+# Try to import all workers (skip if not found)
+workers_to_register = [
+    ("echo_worker", "src.workers.echo_worker.EchoWorker"),
+    ("shopee_affiliate", "src.workers.shopee_worker.ShopeeWorker"),
+    ("tiktok_affiliate", "src.workers.tiktok_worker.TikTokWorker"),
+    ("content_creator", "src.workers.content_worker.ContentWorker"),
+    ("facebook_autoposter", "src.workers.facebook_autoposter.FacebookAutoPoster"),
+]
+
+# Đăng ký worker nếu import thành công
+for name, path in workers_to_register:
+    try:
+        module_path, class_name = path.rsplit(".", 1)
+        module = __import__(module_path, fromlist=[class_name])
+        worker_class = getattr(module, class_name)
+        registry[name] = worker_class
+        print(f"Registered worker: {name}")
+    except ImportError as e:
+        print(f"Worker '{name}' skipped (import error: {e})")
+    except Exception as e:
+        print(f"Worker '{name}' failed to register: {e}")
+
+# Ensure DB tables exist
 try:
-    from src.db.session import get_engine
-    from src.db.models import Base
-    Base.metadata.create_all(bind=get_engine())
+    from src.db.database import Base, engine
+    Base.metadata.create_all(bind=engine)
+    print("Database tables ensured")
 except Exception as e:
-    print(f'[WARN] Could not ensure DB tables: {e}')
+    print(f"⚠️ Could not create DB tables: {e}")
 
-register_worker("echo_worker", EchoWorker)
-register_worker("shopee_affiliate", ShopeeWorker)
-register_worker("tiktok_affiliate", TikTokWorker)
-register_worker("content_creator", ContentWorker)
-register_worker("facebook_autoposter", FacebookAutoPoster)
-
-print('[Core] Registered workers:', list(__import__('src.orchestrator', fromlist=['registry']).registry.keys()))
+print(f"Registered workers: {list(registry.keys())}")
 
 def drain_pending_once(max_workers: int = 3, timeout: float = 10.0):
     """Reliable one-shot processor for --run-once or testing."""
-    import asyncio
-    from concurrent.futures import ThreadPoolExecutor
-    from src.orchestrator_async import worker_loop, TaskQueueDB
-    from src.orchestrator import load_workers
-
     load_workers()
     queue = TaskQueueDB()
     executor = ThreadPoolExecutor(max_workers=max_workers)
@@ -39,7 +48,6 @@ def drain_pending_once(max_workers: int = 3, timeout: float = 10.0):
 
     async def _drain():
         tasks = [asyncio.create_task(worker_loop(i, queue, executor, 0.2, stop_event)) for i in range(max_workers)]
-        # Wait for no pending or timeout
         waited = 0.0
         while waited < timeout:
             try:
@@ -59,9 +67,13 @@ def drain_pending_once(max_workers: int = 3, timeout: float = 10.0):
     asyncio.run(_drain())
 
 if __name__ == "__main__":
-    import sys
+    logging.basicConfig(level=logging.INFO)
     if "--run-once" in sys.argv:
         print("[Core] Running one-shot drain of pending tasks...")
         drain_pending_once()
     else:
-        asyncio.run(run_engine())
+        print("Starting Worker Engine (continuous mode)...")
+        try:
+            asyncio.run(run_engine())
+        except KeyboardInterrupt:
+            print("Worker stopped by user")

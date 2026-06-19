@@ -36,7 +36,7 @@ def test_add_task(queue, db_session):
     task = db_session.get(Task, tid)
     assert task.category == "category1"
     assert task.worker_name == "worker_a"
-    assert task.payload == {"key": "value"}
+    import json; assert json.loads(task.payload) == {"key": "value"}
     assert task.status == "PENDING"
 
 
@@ -111,3 +111,4 @@ def test_log_execution(queue, db_session):
     log = db_session.query(ExecutionLog).filter(ExecutionLog.task_id == tid).first()
     assert log.log_level == "INFO"
     assert log.message == "test message"
+

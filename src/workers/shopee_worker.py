@@ -1,44 +1,18 @@
-﻿from src.base_worker import BaseWorker
-from typing import Any, Dict
-from src.content_creation_agent import create_article
+﻿"""
+Shopee worker – giả lập xử lý dữ liệu Shopee.
+"""
 
-class ShopeeWorker(BaseWorker):
-    description = "Generate Shopee affiliate content"
-    category = "shopee"
-    version = "2.0"
+def run(payload: dict, **kwargs) -> dict:
+    """Worker Shopee – trả về payload đã nhận."""
+    return {
+        "status": "success",
+        "result": {
+            "data": payload,
+            "worker": "shopee"
+        }
+    }
 
-    def healthcheck(self) -> bool:
-        return True
-
-    def run(self, **kwargs) -> Dict[str, Any]:
-        campaign_info = kwargs.get("campaign_info") or (kwargs.get("payload") or {}).get("campaign_info")
-        url = kwargs.get("url") or (kwargs.get("payload") or {}).get("url")
-
-        if not campaign_info:
-            if url:
-                campaign_info = {
-                    "name": "Sản phẩm Shopee",
-                    "commission_display": "10%",
-                    "description": "",
-                    "url": url
-                }
-            else:
-                campaign_info = {
-                    "name": kwargs.get("name", "Shopee Product"),
-                    "commission_display": "10%",
-                    "description": "",
-                    "url": url or ""
-                }
-
-        try:
-            content = create_article(campaign_info)
-            return {
-                "status": "ok",
-                "summary": content,
-                "data": {
-                    "url": campaign_info.get("url"),
-                    "provider": "groq"
-                }
-            }
-        except Exception as e:
-            return {"status": "error", "summary": f"Content generation failed: {str(e)}"}
+class ShopeeWorker:
+    @staticmethod
+    def run(payload: dict, **kwargs) -> dict:
+        return run(payload, **kwargs)

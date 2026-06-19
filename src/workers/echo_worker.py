@@ -1,13 +1,19 @@
-﻿from src.base_worker import BaseWorker
-from typing import Any, Dict
+﻿"""
+Echo worker – chỉ trả lại payload.
+"""
 
-class EchoWorker(BaseWorker):
-    description = "Simple echo worker for testing the queue"
-    category = "test"
-    version = "1.0"
+def run(payload: dict, **kwargs) -> dict:
+    """Worker echo – trả về payload đã nhận."""
+    return {
+        "status": "success",
+        "result": {
+            "echo": payload,
+            "worker": "echo_worker"
+        }
+    }
 
-    def healthcheck(self) -> bool:
-        return True
-
-    def run(self, **kwargs) -> Dict[str, Any]:
-        return {"status": "ok", "summary": f"Echo: {kwargs}"}
+# Để tương thích với một số hàm gọi worker bằng tên class
+class EchoWorker:
+    @staticmethod
+    def run(payload: dict, **kwargs) -> dict:
+        return run(payload, **kwargs)

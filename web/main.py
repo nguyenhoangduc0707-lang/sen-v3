@@ -17,6 +17,7 @@ from src.auth.jwt import get_current_user, get_current_user_optional
 from web.routers.auth import router as auth_router
 from web.routers.scheduler import router as scheduler_router
 from web.routers.affiliate import router as affiliate_router
+from web.routers.worker import router as worker_router
 
 # Optional routers - import safely
 try:
@@ -101,6 +102,7 @@ app.add_middleware(
 # Register real routers (prefixes defined inside routers)
 app.include_router(auth_router)          # /auth
 app.include_router(scheduler_router)     # /schedules
+app.include_router(worker_router)        # /worker (Cloud Tasks target)
 app.include_router(affiliate_router)     # /affiliate
 
 if commission_router:

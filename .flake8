@@ -1,6 +1,20 @@
-﻿[flake8]
-max-line-length = 150
-exclude = venv,__pycache__,node_modules,.pytest_cache,alembic/versions
+﻿	[flake8]
+max-line-length = 120
+exclude =
+    venv,
+    .git,
+    __pycache__,
+    .pytest_cache,
+    .github,
+    .vscode,
+    VINA_DTECH_APP,
+    node_modules,
+    alembic/versions,
+    data,
+    credentials,
+    copilot-cli,
+    gemini-cli
+
 per-file-ignores =
     alembic/env.py: E402
     run_picker.py: E402

@@ -1,47 +1,46 @@
-﻿# Python
-__pycache__/
-*.py[cod]
-venv/
+﻿__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
 .env
 .env.local
+venv/
+.venv/
+env/
+ENV/
 *.db
+*.db-shm
+*.db-wal
 *.sqlite
-*.log
-
-# Credentials & secrets
+*.sqlite3
 credentials/
 *.auth.json
-*.auth
 *.pem
 *.key
 *.crt
 *.p12
-*.secret
-*.token
-*.cookie
-*.session
-*.storage_state
-
-# Project specific
-facebook_auth.json
-save_facebook_auth.py
-config/.env.production
-*.xlsx
-*.xls
-
-# Node / frontend
-node_modules/
-frontend/node_modules/
-package-lock.json
-
-# IDE
+*.log
+*.tmp
+*.temp
+logs/
+tmp/
+temp/
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 .DS_Store
 Thumbs.db
-
-# Cloud
-cloud_sql_credentials.json
-service_account.json
+frontend/node_modules/
+node_modules/
+.npm/
+.yarn/
+package-lock.json
+yarn.lock
+config/.env.production
+save_facebook_auth.py
+scripts/save_facebook_auth.py
+gemini-cli/
